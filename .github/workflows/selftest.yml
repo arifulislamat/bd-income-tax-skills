@@ -1,0 +1,20 @@
+name: selftest
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  selftest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate manifests
+        run: |
+          python3 -c "import json; json.load(open('marketplace.json')); json.load(open('bd-income-tax/.claude-plugin/plugin.json'))"
+      - name: Run calculator self-test
+        run: python3 bd-income-tax/scripts/tax_calc.py --selftest
