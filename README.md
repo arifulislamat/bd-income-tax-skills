@@ -1,22 +1,75 @@
 # bd-income-tax-skills
 
-An Agent Skill for **Bangladesh individual (personal) income tax**. It gives an AI agent the
-data and a deterministic calculator to answer Bangladesh personal income-tax questions for a
-given assessment year — tax slabs, tax-free thresholds, salary exemption, the Section 78
-investment rebate, minimum tax, net-wealth surcharge, filing rules, and penalties.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Agent Skill](https://img.shields.io/badge/Agent-Skill-blue.svg)](https://agentskills.io)
+[![Built with Claude](https://img.shields.io/badge/Built%20with-Claude-d97757.svg)](https://claude.com/claude-code)
 
-## Quick start
+Agent Skill for **Bangladesh individual (personal) income tax**. It lets any compatible AI
+agent (Claude, Codex, Gemini CLI, etc.) accurately answer Bangladesh personal income-tax
+questions and compute tax for a given assessment year — slabs, tax-free thresholds, salary
+exemption, the Section 78 investment rebate, minimum tax, net-wealth surcharge, TDS credit,
+filing/PSR rules, Tax Day, and penalties.
+
+The skill lives in [`bd-income-tax/`](./bd-income-tax). Authored to the open
+[Agent Skills](https://agentskills.io) standard, so the same `SKILL.md` runs unmodified
+across the tools that adopted it.
+
+## What it does
+
+- **Year-aware.** Bangladesh income year is 1 Jul – 30 Jun → the *following* assessment year.
+  Primary year **AY 2026-27**; also supports **AY 2025-26** for late/prior returns. Every
+  answer states the assessment year and governing law.
+- **Deterministic math.** All arithmetic runs through
+  [`bd-income-tax/scripts/tax_calc.py`](./bd-income-tax/scripts/tax_calc.py) — standard
+  library only, **no network calls**, no model arithmetic.
+- **Sourced.** Every rate/threshold is tagged with its source in
+  [`references/sources.md`](./bd-income-tax/references/sources.md).
+
+## Assessment-year caveat
+
+The FY 2026-27 measures were placed as a **Finance Bill** on 11 Jun 2026 and are expected to
+become the **Finance Act 2026** (effective 1 Jul 2026). Until gazetted, treat AY 2026-27
+figures as provisional. A few edge-case figures (DPS cap, agriculture deemed-cost %,
+solely-agricultural exemption, delay-interest rate) are marked **⚠️ unverified** in the
+references and are deliberately **not** used by the calculator.
+
+## Quick start (calculator)
 
 ```bash
-python3 bd-income-tax/scripts/tax_calc.py --selftest
+python3 bd-income-tax/scripts/tax_calc.py --selftest        # runs the canonical test cases
 python3 bd-income-tax/scripts/tax_calc.py --year 2026-27 --category general --salary 1320000
 ```
+
+Canonical results the self-test asserts: **60,750 / 70,070 / 7,500 / 49,500**.
+
+## Install
+
+- **Claude Code plugin marketplace:**
+  ```
+  /plugin marketplace add arifulislamat/bd-income-tax-skills
+  /plugin install bd-income-tax@bd-income-tax-skills
+  ```
+- **Claude.ai:** Settings → Customize → Skills → upload the zipped `bd-income-tax/` folder.
+- **OpenAI Codex CLI:** place `bd-income-tax/` under `~/.agents/skills/`.
+- **Gemini CLI / Antigravity:** place under `~/.gemini/...` (CLI) or `.agent/skills/`.
+- **Clone & copy:** `git clone` this repo and copy `bd-income-tax/` into your agent's skills directory.
+
+The consumer ChatGPT and Gemini apps do not load `SKILL.md`; a GPT/Gem front-end would need
+to link out to this repo for the full dataset.
+
+## How this was built
+
+This skill was authored with **AI assistance (Claude Code)**. Every rate, threshold, and
+figure is grounded in the cited sources in
+[`references/sources.md`](./bd-income-tax/references/sources.md) and verified by the
+deterministic calculator's self-tests — not produced free-hand. Corrections and source
+updates are welcome; see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Disclaimer
 
 Informational only; **not professional tax advice.** Verify against the current gazetted
-Finance Act and NBR circulars (`nbr.gov.bd`). Individual/personal tax scope only — not
-corporate tax or VAT.
+**Finance Act 2026** and NBR circulars (`nbr.gov.bd`). Individual/personal tax scope only —
+not corporate tax or VAT.
 
 ## License
 
