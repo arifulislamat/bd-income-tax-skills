@@ -1,5 +1,5 @@
 {
   "name": "bd-income-tax",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Compute and explain Bangladesh individual income tax (Income Tax Act 2023 + Finance Act): slabs, thresholds, salary exemption, Section 78 investment rebate, minimum tax, net-wealth surcharge, filing/PSR rules, Tax Day, and penalties. Deterministic calculator, no network calls."
 }

@@ -4,6 +4,13 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [1.2.1] - 2026-06-14
+
+### Added
+- `license: MIT` and `metadata` (author, source) in the skill's `SKILL.md` frontmatter, plus a
+  `LICENSE` copy inside `skills/bd-income-tax/`, so author and license travel with every install
+  (e.g. `npx skills add`, which copies only the skill folder).
+
 ## [1.2.0] - 2026-06-14
 
 ### Changed
