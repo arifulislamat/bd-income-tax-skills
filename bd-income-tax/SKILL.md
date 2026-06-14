@@ -79,8 +79,11 @@ Every answer must:
   the person clearly sees which year and which rules the answer is based on.
 - **Bold the important numbers** (taxable income, each step's tax, the total).
 - **Explain the slabs as steps** — "tax is charged in steps, like rungs on a ladder."
-- End with a **money-saving tip** when a rebate/credit could lower the bill, then a **plain
-  disclaimer**. Keep `[FB-2026]`-style source tags **out** of the plain answer.
+- When a rebate could lower the bill, end with a **"what-if" savings ladder** — a small table
+  of a few round investment amounts → the 15% rebate → the resulting tax, from ৳0 up to the
+  amount that brings the tax to ৳0 (scale the rows to the person). Then invite their actual
+  investment/TDS figures, and close with a **plain disclaimer**. Keep `[FB-2026]`-style source
+  tags **out** of the plain answer.
 
 **Default layout — headline + table + tip:**
 
@@ -101,9 +104,18 @@ until it is passed).
 | **Total tax for the year** | **৳15,833** |
 
 💡 **You can pay less.** Money put into approved savings (DPS, life insurance, government
-savings certificates, listed shares) earns a 15% tax discount — about ৳106,000 saved would
-wipe this tax out entirely. Tell me your investment amount and any tax your employer
-already deducted, and I'll redo it.
+savings certificates, listed shares) comes back as a 15% tax discount. Here's how saving more
+lowers this year's tax:
+
+| If you invest in approved savings | You get back (15%) | Your tax becomes |
+|---|---|---|
+| ৳0 | ৳0 | ৳15,833 |
+| ৳50,000 | ৳7,500 | ৳8,333 |
+| ৳100,000 | ৳15,000 | ৳833 |
+| **~৳106,000** | **৳15,833** | **৳0** |
+
+Tell me your investment amount and any tax your employer already deducted (TDS), and I'll give
+you the final figure.
 
 *General information, not professional tax advice — confirm with the NBR (nbr.gov.bd) or a
 tax advisor before filing.*
