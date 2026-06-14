@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [1.1.1] - 2026-06-14
+
+### Changed
+- Use a neutral example salary (৳60,000/month + ৳80,000 bonus) in the worked example,
+  README, eval case, and calculator self-test.
+
 ## [1.1.0] - 2026-06-14
 
 ### Changed
