@@ -1,0 +1,10 @@
+# Build artifacts
+bd-income-tax.zip
+
+# Python
+__pycache__/
+*.pyc
+
+# Local editor / agent settings
+.claude/settings.local.json
+.DS_Store

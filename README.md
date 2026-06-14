@@ -49,7 +49,11 @@ Canonical results the self-test asserts: **60,750 / 70,070 / 7,500 / 49,500**.
   /plugin marketplace add arifulislamat/bd-income-tax-skills
   /plugin install bd-income-tax@bd-income-tax-skills
   ```
-- **Claude.ai:** Settings → Customize → Skills → upload the zipped `bd-income-tax/` folder.
+- **Claude.ai / desktop apps:** download **`bd-income-tax.zip`** from the
+  [latest release](https://github.com/arifulislamat/bd-income-tax-skills/releases/latest) and
+  upload it under Settings → Capabilities → Skills. The archive is the skill folder itself
+  (top-level `bd-income-tax/` with `SKILL.md` inside), so no manual zipping is needed — do
+  **not** use GitHub's "Source code" zip, which wraps everything in the repo root.
 - **OpenAI Codex CLI:** place `bd-income-tax/` under `~/.agents/skills/`.
 - **Gemini CLI / Antigravity:** place under `~/.gemini/...` (CLI) or `.agent/skills/`.
 - **Clone & copy:** `git clone` this repo and copy `bd-income-tax/` into your agent's skills directory.

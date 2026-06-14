@@ -1,0 +1,24 @@
+name: release-asset
+
+# When a release is published, attach the skill folder as a ready-to-upload zip
+# (top-level `bd-income-tax/` with SKILL.md inside) for claude.ai and desktop apps
+# that expect the skill directory zipped — not the repository root.
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  attach-skill-zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build skill archive
+        run: git archive --format=zip --prefix=bd-income-tax/ -o bd-income-tax.zip HEAD:bd-income-tax
+      - name: Attach to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.event.release.tag_name }}" bd-income-tax.zip --clobber
