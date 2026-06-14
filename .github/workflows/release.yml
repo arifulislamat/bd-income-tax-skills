@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build skill archive
-        run: git archive --format=zip --prefix=bd-income-tax/ -o bd-income-tax.zip HEAD:bd-income-tax
+        run: git archive --format=zip --prefix=bd-income-tax/ -o bd-income-tax.zip HEAD:skills/bd-income-tax
       - name: Attach to release
         env:
           GH_TOKEN: ${{ github.token }}

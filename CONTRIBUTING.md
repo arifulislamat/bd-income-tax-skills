@@ -6,10 +6,10 @@ wrong rate or threshold is worse than a missing feature.
 ## Ground rules
 
 - **Cite every number.** Any new or changed rate, threshold, or rule must carry a source in
-  [`bd-income-tax/references/sources.md`](./bd-income-tax/references/sources.md). Prefer the
+  [`skills/bd-income-tax/references/sources.md`](./skills/bd-income-tax/references/sources.md). Prefer the
   gazetted Act, the Finance Act, and NBR circulars over secondary coverage.
 - **Keep the math in the calculator.** All arithmetic lives in
-  [`bd-income-tax/scripts/tax_calc.py`](./bd-income-tax/scripts/tax_calc.py). Year parameters
+  [`skills/bd-income-tax/scripts/tax_calc.py`](./skills/bd-income-tax/scripts/tax_calc.py). Year parameters
   go in the `PARAMS` table so a yearly update touches one place. Never hand-calculate in
   `SKILL.md` or the references.
 - **Flag the unverified.** If a figure isn't confirmed against the gazetted Act, mark it
@@ -19,10 +19,10 @@ wrong rate or threshold is worse than a missing feature.
 
 1. Run the calculator self-test:
    ```bash
-   python3 bd-income-tax/scripts/tax_calc.py --selftest
+   python3 skills/bd-income-tax/scripts/tax_calc.py --selftest
    ```
 2. If you changed slabs/thresholds/rebate logic, add or update a canonical case in the
-   self-test and an eval case in `bd-income-tax/evals/evals.json`.
+   self-test and an eval case in `skills/bd-income-tax/evals/evals.json`.
 3. Keep `plugin.json`, `marketplace.json`, and `CHANGELOG.md` versions in sync when releasing.
 
 ## Commit conventions

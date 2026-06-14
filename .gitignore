@@ -6,5 +6,5 @@ __pycache__/
 *.pyc
 
 # Local editor / agent settings
-.claude/settings.local.json
+.claude/
 .DS_Store

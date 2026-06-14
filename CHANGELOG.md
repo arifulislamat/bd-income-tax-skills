@@ -4,6 +4,18 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] - 2026-06-14
+
+### Changed
+- Restructured to the canonical `skills/bd-income-tax/` layout so the skill is discoverable by
+  **skills.sh** (`npx skills add arifulislamat/bd-income-tax-skills`) as well as the Claude Code
+  plugin system — from one copy. The plugin manifest moved to `.claude-plugin/plugin.json`, the
+  marketplace `source` is now `./`, and the calculator path uses
+  `$CLAUDE_PLUGIN_ROOT/skills/bd-income-tax/scripts/tax_calc.py`.
+
+### Added
+- `npx skills add` (skills.sh) install command in the README.
+
 ## [1.1.3] - 2026-06-14
 
 ### Changed

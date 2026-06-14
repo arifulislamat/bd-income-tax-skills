@@ -10,7 +10,7 @@ questions and compute tax for a given assessment year — slabs, tax-free thresh
 exemption, the Section 78 investment rebate, minimum tax, net-wealth surcharge, TDS credit,
 filing/PSR rules, Tax Day, and penalties.
 
-The skill lives in [`bd-income-tax/`](./bd-income-tax). Authored to the open
+The skill lives in [`skills/bd-income-tax/`](./skills/bd-income-tax). Authored to the open
 [Agent Skills](https://agentskills.io) standard, so the same `SKILL.md` runs unmodified
 across the tools that adopted it.
 
@@ -20,10 +20,10 @@ across the tools that adopted it.
   Primary year **AY 2026-27**; also supports **AY 2025-26** for late/prior returns. Every
   answer states the assessment year and governing law.
 - **Deterministic math.** All arithmetic runs through
-  [`bd-income-tax/scripts/tax_calc.py`](./bd-income-tax/scripts/tax_calc.py) — standard
+  [`skills/bd-income-tax/scripts/tax_calc.py`](./skills/bd-income-tax/scripts/tax_calc.py) — standard
   library only, **no network calls**, no model arithmetic.
 - **Sourced.** Every rate/threshold is tagged with its source in
-  [`references/sources.md`](./bd-income-tax/references/sources.md).
+  [`references/sources.md`](./skills/bd-income-tax/references/sources.md).
 
 ## Assessment-year caveat
 
@@ -36,14 +36,18 @@ references and are deliberately **not** used by the calculator.
 ## Quick start (calculator)
 
 ```bash
-python3 bd-income-tax/scripts/tax_calc.py --selftest        # runs the canonical test cases
-python3 bd-income-tax/scripts/tax_calc.py --year 2026-27 --category general --salary 800000
+python3 skills/bd-income-tax/scripts/tax_calc.py --selftest        # runs the canonical test cases
+python3 skills/bd-income-tax/scripts/tax_calc.py --year 2026-27 --category general --salary 800000
 ```
 
 Canonical results the self-test asserts: **15,833 / 70,070 / 7,500 / 49,500**.
 
 ## Install
 
+- **skills.sh (any agent — Claude, Codex, Cursor, …):**
+  ```
+  npx skills add arifulislamat/bd-income-tax-skills
+  ```
 - **Claude Code plugin marketplace:**
   ```
   /plugin marketplace add arifulislamat/bd-income-tax-skills
@@ -54,9 +58,9 @@ Canonical results the self-test asserts: **15,833 / 70,070 / 7,500 / 49,500**.
   upload it under Settings → Capabilities → Skills. The archive is the skill folder itself
   (top-level `bd-income-tax/` with `SKILL.md` inside), so no manual zipping is needed — do
   **not** use GitHub's "Source code" zip, which wraps everything in the repo root.
-- **OpenAI Codex CLI:** place `bd-income-tax/` under `~/.agents/skills/`.
+- **OpenAI Codex CLI:** place `skills/bd-income-tax/` under `~/.agents/skills/`.
 - **Gemini CLI / Antigravity:** place under `~/.gemini/...` (CLI) or `.agent/skills/`.
-- **Clone & copy:** `git clone` this repo and copy `bd-income-tax/` into your agent's skills directory.
+- **Clone & copy:** `git clone` this repo and copy `skills/bd-income-tax/` into your agent's skills directory.
 
 The consumer ChatGPT and Gemini apps do not load `SKILL.md`; a GPT/Gem front-end would need
 to link out to this repo for the full dataset.
@@ -82,7 +86,7 @@ re-upload it under Settings → Capabilities → Skills.
 
 This skill was authored with **AI assistance (Claude Code)**. Every rate, threshold, and
 figure is grounded in the cited sources in
-[`references/sources.md`](./bd-income-tax/references/sources.md) and verified by the
+[`references/sources.md`](./skills/bd-income-tax/references/sources.md) and verified by the
 deterministic calculator's self-tests — not produced free-hand. Corrections and source
 updates are welcome; see [CONTRIBUTING.md](./CONTRIBUTING.md).
 

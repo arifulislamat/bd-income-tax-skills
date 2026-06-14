@@ -52,7 +52,7 @@ path rather than `cd`-ing into that folder (this keeps the command stable across
 `$CLAUDE_PLUGIN_ROOT` when it is set:
 
 ```
-python3 "$CLAUDE_PLUGIN_ROOT/scripts/tax_calc.py" --year 2026-27 --category general --salary 800000 [...]
+python3 "$CLAUDE_PLUGIN_ROOT/skills/bd-income-tax/scripts/tax_calc.py" --year 2026-27 --category general --salary 800000 [...]
 ```
 
 If `$CLAUDE_PLUGIN_ROOT` is not set, run `python3 scripts/tax_calc.py …` from this skill's own

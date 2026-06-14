@@ -2,7 +2,7 @@
 
 Guidance for AI agents (and humans) working **on this repository**. For the skill's own
 runtime behavior — how answers are computed and presented to end users — see
-[`bd-income-tax/SKILL.md`](./bd-income-tax/SKILL.md).
+[`skills/bd-income-tax/SKILL.md`](./skills/bd-income-tax/SKILL.md).
 
 ## What this is
 
@@ -13,17 +13,22 @@ the current Finance Act. Scope is individuals only — **not** corporate tax or 
 ## Layout
 
 ```
-.claude-plugin/marketplace.json     # marketplace manifest — MUST live here, not the repo root
-bd-income-tax/                      # the skill (this folder is what users install)
-  .claude-plugin/plugin.json        # plugin manifest (holds the version)
+.claude-plugin/
+  marketplace.json                  # marketplace manifest (source "./" — the repo is the plugin)
+  plugin.json                       # plugin manifest (holds the version)
+skills/bd-income-tax/               # the skill — discoverable by Claude Code AND skills.sh
   SKILL.md                          # skill instructions / runtime behavior
   scripts/tax_calc.py               # deterministic calculator — the single source of math
   references/                       # per-year data, 9-step procedure, filing rules, sources
   evals/evals.json                  # end-to-end eval cases
-CHANGELOG.md  CONTRIBUTING.md  README.md
+CHANGELOG.md  CONTRIBUTING.md  README.md  AGENTS.md  CLAUDE.md
 .github/workflows/selftest.yml      # CI: runs --selftest + validates manifests
 .github/workflows/release.yml       # on release publish: attaches bd-income-tax.zip
 ```
+
+The skill lives under `skills/` (not the repo root or a `bd-income-tax/` subfolder) because
+that's a path the skills.sh CLI scans, and Claude Code discovers a plugin's skills in its
+`skills/` directory — so one layout serves both.
 
 ## Core rules (non-negotiable)
 
@@ -41,8 +46,8 @@ CHANGELOG.md  CONTRIBUTING.md  README.md
 
 ## Before committing
 
-1. `python3 bd-income-tax/scripts/tax_calc.py --selftest` must pass.
-2. Validate JSON: `.claude-plugin/marketplace.json` and `bd-income-tax/.claude-plugin/plugin.json`.
+1. `python3 skills/bd-income-tax/scripts/tax_calc.py --selftest` must pass.
+2. Validate JSON: `.claude-plugin/marketplace.json` and `.claude-plugin/plugin.json`.
 3. If you change slabs/thresholds/rebate logic, update the canonical self-test case **and** an
    eval case in `evals/evals.json`.
 
@@ -57,7 +62,7 @@ CHANGELOG.md  CONTRIBUTING.md  README.md
 - Cut a release with a signed tag `vX.Y.Z`, a GitHub Release with named notes, and the skill
   archive attached. Build the archive with:
   ```
-  git archive --format=zip --prefix=bd-income-tax/ -o bd-income-tax.zip <tag>:bd-income-tax
+  git archive --format=zip --prefix=bd-income-tax/ -o bd-income-tax.zip <tag>:skills/bd-income-tax
   ```
   The `release.yml` workflow attaches it automatically on publish.
 - Repo-level docs that don't ship in the plugin (this file, `CLAUDE.md`) **don't** need a
@@ -66,7 +71,8 @@ CHANGELOG.md  CONTRIBUTING.md  README.md
 ## Install / update (reference)
 
 ```
-/plugin marketplace add arifulislamat/bd-income-tax-skills
+npx skills add arifulislamat/bd-income-tax-skills           # skills.sh (any agent)
+/plugin marketplace add arifulislamat/bd-income-tax-skills  # Claude Code plugin
 /plugin install bd-income-tax@bd-income-tax-skills
 # update later (run one at a time):
 /plugin marketplace update bd-income-tax-skills

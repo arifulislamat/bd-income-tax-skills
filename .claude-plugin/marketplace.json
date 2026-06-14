@@ -6,13 +6,13 @@
   },
   "metadata": {
     "description": "Bangladesh tax Agent Skills — individual income tax and related tools.",
-    "version": "1.1.3",
+    "version": "1.2.0",
     "repository": "https://github.com/arifulislamat/bd-income-tax-skills"
   },
   "plugins": [
     {
       "name": "bd-income-tax",
-      "source": "./bd-income-tax",
+      "source": "./",
       "description": "Compute and explain Bangladesh individual income tax under the Income Tax Act 2023 and the current Finance Act."
     }
   ]
