@@ -4,6 +4,14 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [1.0.1] - 2026-06-14
+
+### Added
+- Release workflow that attaches `bd-income-tax.zip` (the skill folder, `SKILL.md` at the top
+  level) to every published release, for claude.ai and desktop apps that expect the skill
+  directory zipped rather than the repository root.
+- `.gitignore` for build artifacts and local settings.
+
 ## [1.0.0] - 2026-06-14
 
 ### Added
