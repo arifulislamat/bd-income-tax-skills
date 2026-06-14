@@ -4,6 +4,15 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-06-14
+
+### Changed
+- Answers now lead with a plain-language bottom line anyone can understand (with a monthly
+  equivalent), a clear "income year → assessment year + governing law" line, a compact table
+  with the key numbers bolded, and a money-saving tip. The full numbered procedure with source
+  citations is now shown only for professionals or on request.
+- Replies match the user's language (English → English, Bangla → Bangla).
+
 ## [1.0.2] - 2026-06-14
 
 ### Fixed
