@@ -63,27 +63,88 @@ The script returns every intermediate (threshold, salary exemption, total income
 breakdown, gross tax, rebate + its three candidates, tax after rebate, minimum tax, surcharge,
 TDS credit, net payable).
 
-## 4. Present results as the numbered procedure
+## 4. Present the answer in plain language (the default)
 
-Follow `references/procedure.md` steps 1–9 in order. Use **tables** for slabs, rebate
-candidates, and surcharge bands. **Cite the source** (e.g. `[FB-2026]`, `[ITA-2023]`) for
-every rate and threshold you state.
+Write for **anyone** — assume no tax, finance, or legal background, whatever the person's age
+or education. **Match the user's language** (English → English, Bangla → Bangla).
 
-## 5. Worked example (AY 2026-27)
+Every answer must:
+- **Open with the bottom line** in one bold sentence, with the **monthly equivalent** —
+  e.g. **"You owe about ৳73,750 in income tax — roughly ৳6,150 a month."**
+- **Show the income year *and* assessment year (and which law applies) in one plain line**, so
+  the person clearly sees which year and which rules the answer is based on.
+- **Bold the important numbers** (taxable income, each step's tax, the total).
+- **Explain the slabs as steps** — "tax is charged in steps, like rungs on a ladder."
+- End with a **money-saving tip** when a rebate/credit could lower the bill, then a **plain
+  disclaimer**. Keep `[FB-2026]`-style source tags **out** of the plain answer.
 
-Salary gross 1,425,600 + 56.25% share of commercial rent (net 197,070), investment 465,000:
-- Salary exemption ⅓ = 475,200 (< 500,000 cap) → salary income 950,400.
-- Total income 1,147,470 → gross tax **104,494**.
-- Rebate = min(34,424; 69,750; 1,000,000) → **34,424**. Tax after rebate **70,070**.
+**Default layout — headline + table + tip:**
+
+```
+**You owe about ৳73,750 in income tax — roughly ৳6,150 a month.**
+
+Income year **1 Jul 2025 – 30 Jun 2026** → **Assessment Year 2026-27** (filed under the
+Income Tax Act 2023; the 2026-27 rates come from the Finance Bill 2026, still provisional
+until it is passed).
+
+| Step | Amount |
+|---|---|
+| Salary for the year (110,000 × 12 + 130,000 bonus) | ৳1,450,000 |
+| − Tax-free third of salary (⅓, capped at 500,000) | −৳483,333 |
+| **Income that gets taxed** | **৳966,667** |
+| First 375,000 — 0% | ৳0 |
+| Next 300,000 — 10% | ৳30,000 |
+| Next 291,667 — 15% | ৳43,750 |
+| **Total tax for the year** | **৳73,750** |
+
+💡 **You can pay less.** Money put into approved savings (DPS, life insurance, government
+savings certificates, listed shares) earns a tax discount — up to ৳29,000 here, which would
+cut the tax to about ৳44,750. Tell me your investment amount and any tax your employer
+already deducted, and I'll redo it.
+
+*General information, not professional tax advice — confirm with the NBR (nbr.gov.bd) or a
+tax advisor before filing.*
+```
+
+**If the person is confused or asks for it simpler, switch to the receipt layout** — one
+aligned column, top to bottom, total highlighted at the bottom:
+
+```
+Bangladesh income tax · income year 1 Jul 2025–30 Jun 2026 · Assessment Year 2026-27
+
+Salary for the year                       ৳1,450,000
+  (110,000 × 12  +  130,000 bonus)
+Tax-free third of salary                    −483,333
+                                          ──────────
+Income that is taxed                       ৳966,667
+
+Tax, charged in steps
+  First  375,000      0%                           0
+  Next   300,000     10%                      30,000
+  Next   291,667     15%                      43,750
+                                          ──────────
+➡  TOTAL TAX FOR THE YEAR                   ৳73,750
+   ≈ ৳6,150 per month
+```
+
+**Only for professionals, or when explicitly asked for the official breakdown:** give the full
+numbered procedure (`references/procedure.md` steps 1–9) with per-rate `[FB-2026]` /
+`[ITA-2023]` citations and separate tables for slabs, rebate candidates, and surcharge bands.
+
+## 5. Reproduce the worked numbers
 
 ```
 python3 scripts/tax_calc.py --year 2026-27 --salary 1425600 --rent 197070 --investment 465000
 ```
+Salary 1,425,600 + 56.25% share of commercial rent (net 197,070), investment 465,000 →
+total income **1,147,470**, gross tax **104,494**, rebate **34,424**, tax after rebate
+**70,070**.
 
 ## 6. Guardrails
 
 - Individual tax only; deterministic script for all math; **no network calls**.
-- Every numeric output carries the assessment year and a source citation.
+- Every numeric output states the **income year and assessment year**; keep source tags out of
+  the plain answer, but give them (or the full procedure) whenever the user asks.
 - Figures marked **⚠️ unverified** in the references (DPS cap, agriculture deemed-cost %,
   solely-agricultural exemption, delay-interest rate) are **not** used by the calculator —
   present them only with the caveat to confirm against the gazetted Act.
