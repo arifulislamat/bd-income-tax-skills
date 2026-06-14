@@ -10,6 +10,10 @@ description: >-
   income tax, NBR, TIN, e-return / etaxnbr, an assessment year vs income year,
   salary tax computation, investment rebate, surcharge, or asks to calculate an
   individual's Bangladeshi tax for any year — even if they don't say "skill".
+license: MIT
+metadata:
+  author: Ariful Islam
+  source: https://github.com/arifulislamat/bd-income-tax-skills
 ---
 
 # Bangladesh individual income tax
