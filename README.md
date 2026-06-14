@@ -61,6 +61,23 @@ Canonical results the self-test asserts: **15,833 / 70,070 / 7,500 / 49,500**.
 The consumer ChatGPT and Gemini apps do not load `SKILL.md`; a GPT/Gem front-end would need
 to link out to this repo for the full dataset.
 
+## Updating
+
+When a newer release is published, update in Claude Code by running these **one at a time**
+(slash commands only run when entered on their own, not pasted together):
+
+```
+/plugin marketplace update bd-income-tax-skills
+/plugin update bd-income-tax@bd-income-tax-skills
+```
+
+The first refreshes the marketplace from GitHub; the second installs the new version. Confirm
+the version under `/plugin` → **Marketplaces**, or against the [CHANGELOG](./CHANGELOG.md).
+
+For the **desktop / Claude.ai** route, re-download the latest `bd-income-tax.zip` from the
+[latest release](https://github.com/arifulislamat/bd-income-tax-skills/releases/latest) and
+re-upload it under Settings → Capabilities → Skills.
+
 ## How this was built
 
 This skill was authored with **AI assistance (Claude Code)**. Every rate, threshold, and

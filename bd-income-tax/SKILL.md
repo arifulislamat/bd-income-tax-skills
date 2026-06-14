@@ -46,13 +46,17 @@ Read **only** the file for the relevant year, plus shared files as needed:
 
 ## 3. Always run the calculator for any number
 
-Never compute tax yourself. Call:
+Never compute tax yourself — run the bundled `scripts/tax_calc.py`. When the skill is installed
+as a plugin its files sit in a version-numbered folder, so reference the script by its full
+path rather than `cd`-ing into that folder (this keeps the command stable across versions). Use
+`$CLAUDE_PLUGIN_ROOT` when it is set:
 
 ```
-python3 scripts/tax_calc.py --year 2026-27 --category general --salary 800000 [...]
+python3 "$CLAUDE_PLUGIN_ROOT/scripts/tax_calc.py" --year 2026-27 --category general --salary 800000 [...]
 ```
 
-Or import `compute_tax(...)`. Key inputs: `--year`, `--category`
+If `$CLAUDE_PLUGIN_ROOT` is not set, run `python3 scripts/tax_calc.py …` from this skill's own
+directory. Or import `compute_tax(...)`. Key inputs: `--year`, `--category`
 (`general|female|senior|disabled|third_gender|freedom_fighter|july_warrior`), income heads
 (`--salary` gross, `--rent`, `--agriculture`, `--business`, `--capital-gains`, `--financial`,
 `--other`), `--investment`, `--location` (AY 2025-26 min tax: `dhaka_ctg_cc|other_cc|other`),
