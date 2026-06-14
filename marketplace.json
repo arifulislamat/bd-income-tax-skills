@@ -1,0 +1,19 @@
+{
+  "name": "bd-income-tax-skills",
+  "owner": {
+    "name": "Ariful Islam",
+    "url": "https://github.com/arifulislamat"
+  },
+  "metadata": {
+    "description": "Bangladesh tax Agent Skills — individual income tax and related tools.",
+    "version": "0.1.0",
+    "repository": "https://github.com/arifulislamat/bd-income-tax-skills"
+  },
+  "plugins": [
+    {
+      "name": "bd-income-tax",
+      "source": "./bd-income-tax",
+      "description": "Compute and explain Bangladesh individual income tax under the Income Tax Act 2023 and the current Finance Act."
+    }
+  ]
+}
