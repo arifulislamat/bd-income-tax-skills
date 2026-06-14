@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [1.1.3] - 2026-06-14
+
+### Changed
+- Tax-saving advice now renders as a "what-if" savings ladder table (investment amount → 15%
+  rebate → resulting tax) instead of a paragraph, so the effect of investing is easy to scan.
+
 ## [1.1.2] - 2026-06-14
 
 ### Added
