@@ -4,6 +4,15 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [1.0.0] - 2026-06-14
+
+### Added
+- GitHub Actions CI that runs the calculator self-test and validates the manifests on push.
+
+### Changed
+- Promote to a stable **1.0.0** release: all canonical self-tests and eval cases pass.
+  AY 2026-27 figures remain provisional until the Finance Act 2026 is gazetted.
+
 ## [0.2.0] - 2026-06-14
 
 ### Added

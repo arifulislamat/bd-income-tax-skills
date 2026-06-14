@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Bangladesh tax Agent Skills — individual income tax and related tools.",
-    "version": "0.2.0",
+    "version": "1.0.0",
     "repository": "https://github.com/arifulislamat/bd-income-tax-skills"
   },
   "plugins": [
