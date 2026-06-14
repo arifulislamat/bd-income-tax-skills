@@ -14,7 +14,7 @@ Usage:
     result = compute_tax("2026-27", "general", salary_income=1_320_000)
 
 CLI:
-    python3 tax_calc.py --year 2026-27 --category general --salary 1320000
+    python3 tax_calc.py --year 2026-27 --category general --salary 800000
     python3 tax_calc.py --selftest      # run the four canonical test cases
 """
 
@@ -271,12 +271,12 @@ def _selftest() -> int:
 
     print("Running canonical test cases:")
 
-    # Case 1: AY 2026-27, general, salary 1,320,000 -> exemption 440,000, total 880,000,
-    # gross tax 60,750.
-    r1 = compute_tax("2026-27", "general", salary_income=1_320_000)
-    check("Case 1 salary_exemption", r1["salary_exemption"], 440_000)
-    check("Case 1 total_income", r1["total_income"], 880_000)
-    check("Case 1 gross_tax", r1["gross_tax"], 60_750)
+    # Case 1: AY 2026-27, general, salary 800,000 -> exemption 266,666.67, total 533,333.33,
+    # gross tax 15,833.33.
+    r1 = compute_tax("2026-27", "general", salary_income=800_000)
+    check("Case 1 salary_exemption", r1["salary_exemption"], 266_666.67)
+    check("Case 1 total_income", r1["total_income"], 533_333.33)
+    check("Case 1 gross_tax", r1["gross_tax"], 15_833.33)
 
     # Case 2: AY 2026-27, total income 1,147,470 via heads, investment 465,000 ->
     # gross 104,494, rebate 34,424, after rebate 70,070.

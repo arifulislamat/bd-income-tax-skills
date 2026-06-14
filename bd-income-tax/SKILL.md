@@ -49,7 +49,7 @@ Read **only** the file for the relevant year, plus shared files as needed:
 Never compute tax yourself. Call:
 
 ```
-python3 scripts/tax_calc.py --year 2026-27 --category general --salary 1320000 [...]
+python3 scripts/tax_calc.py --year 2026-27 --category general --salary 800000 [...]
 ```
 
 Or import `compute_tax(...)`. Key inputs: `--year`, `--category`
@@ -81,7 +81,7 @@ Every answer must:
 **Default layout — headline + table + tip:**
 
 ```
-**You owe about ৳73,750 in income tax — roughly ৳6,150 a month.**
+**You owe about ৳15,833 in income tax — roughly ৳1,320 a month.**
 
 Income year **1 Jul 2025 – 30 Jun 2026** → **Assessment Year 2026-27** (filed under the
 Income Tax Act 2023; the 2026-27 rates come from the Finance Bill 2026, still provisional
@@ -89,17 +89,16 @@ until it is passed).
 
 | Step | Amount |
 |---|---|
-| Salary for the year (110,000 × 12 + 130,000 bonus) | ৳1,450,000 |
-| − Tax-free third of salary (⅓, capped at 500,000) | −৳483,333 |
-| **Income that gets taxed** | **৳966,667** |
+| Salary for the year (60,000 × 12 + 80,000 bonus) | ৳800,000 |
+| − Tax-free third of salary (⅓, capped at 500,000) | −৳266,667 |
+| **Income that gets taxed** | **৳533,333** |
 | First 375,000 — 0% | ৳0 |
-| Next 300,000 — 10% | ৳30,000 |
-| Next 291,667 — 15% | ৳43,750 |
-| **Total tax for the year** | **৳73,750** |
+| Next 158,333 — 10% | ৳15,833 |
+| **Total tax for the year** | **৳15,833** |
 
 💡 **You can pay less.** Money put into approved savings (DPS, life insurance, government
-savings certificates, listed shares) earns a tax discount — up to ৳29,000 here, which would
-cut the tax to about ৳44,750. Tell me your investment amount and any tax your employer
+savings certificates, listed shares) earns a 15% tax discount — about ৳106,000 saved would
+wipe this tax out entirely. Tell me your investment amount and any tax your employer
 already deducted, and I'll redo it.
 
 *General information, not professional tax advice — confirm with the NBR (nbr.gov.bd) or a
@@ -112,19 +111,18 @@ aligned column, top to bottom, total highlighted at the bottom:
 ```
 Bangladesh income tax · income year 1 Jul 2025–30 Jun 2026 · Assessment Year 2026-27
 
-Salary for the year                       ৳1,450,000
-  (110,000 × 12  +  130,000 bonus)
-Tax-free third of salary                    −483,333
+Salary for the year                         ৳800,000
+  (60,000 × 12  +  80,000 bonus)
+Tax-free third of salary                    −266,667
                                           ──────────
-Income that is taxed                       ৳966,667
+Income that is taxed                        ৳533,333
 
 Tax, charged in steps
   First  375,000      0%                           0
-  Next   300,000     10%                      30,000
-  Next   291,667     15%                      43,750
+  Next   158,333     10%                      15,833
                                           ──────────
-➡  TOTAL TAX FOR THE YEAR                   ৳73,750
-   ≈ ৳6,150 per month
+➡  TOTAL TAX FOR THE YEAR                   ৳15,833
+   ≈ ৳1,320 per month
 ```
 
 **Only for professionals, or when explicitly asked for the official breakdown:** give the full

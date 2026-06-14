@@ -3,15 +3,15 @@
   "description": "End-to-end test prompts for the Bangladesh individual income-tax skill. Assertions check that the right assessment year is selected, the calculator is used, and the figures match.",
   "cases": [
     {
-      "id": "salary-110k-month",
-      "prompt": "I earn 110,000 taka a month for FY 2025-26. What's my income tax?",
+      "id": "salary-60k-month",
+      "prompt": "I earn 60,000 taka a month plus an 80,000 bonus for FY 2025-26. What's my income tax?",
       "expect": {
         "assessment_year": "2026-27",
-        "total_income": 880000,
-        "gross_tax": 60750,
+        "total_income": 533333,
+        "gross_tax": 15833,
         "notes": [
-          "Annual salary 1,320,000; exemption = 1/3 = 440,000 (< 500,000 cap); total income 880,000.",
-          "Monthly tax ~5,063.",
+          "Annual salary 800,000 (60,000 × 12 + 80,000 bonus); exemption = 1/3 = 266,667 (< 500,000 cap); total income 533,333.",
+          "Monthly tax ~1,320.",
           "Should mention the investment rebate option could reduce this.",
           "Must run scripts/tax_calc.py, not hand-calculate."
         ]

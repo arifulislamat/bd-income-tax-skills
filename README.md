@@ -37,10 +37,10 @@ references and are deliberately **not** used by the calculator.
 
 ```bash
 python3 bd-income-tax/scripts/tax_calc.py --selftest        # runs the canonical test cases
-python3 bd-income-tax/scripts/tax_calc.py --year 2026-27 --category general --salary 1320000
+python3 bd-income-tax/scripts/tax_calc.py --year 2026-27 --category general --salary 800000
 ```
 
-Canonical results the self-test asserts: **60,750 / 70,070 / 7,500 / 49,500**.
+Canonical results the self-test asserts: **15,833 / 70,070 / 7,500 / 49,500**.
 
 ## Install
 
