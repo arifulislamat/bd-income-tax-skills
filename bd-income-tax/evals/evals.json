@@ -1,0 +1,81 @@
+{
+  "skill": "bd-income-tax",
+  "description": "End-to-end test prompts for the Bangladesh individual income-tax skill. Assertions check that the right assessment year is selected, the calculator is used, and the figures match.",
+  "cases": [
+    {
+      "id": "salary-110k-month",
+      "prompt": "I earn 110,000 taka a month for FY 2025-26. What's my income tax?",
+      "expect": {
+        "assessment_year": "2026-27",
+        "total_income": 880000,
+        "gross_tax": 60750,
+        "notes": [
+          "Annual salary 1,320,000; exemption = 1/3 = 440,000 (< 500,000 cap); total income 880,000.",
+          "Monthly tax ~5,063.",
+          "Should mention the investment rebate option could reduce this.",
+          "Must run scripts/tax_calc.py, not hand-calculate."
+        ]
+      }
+    },
+    {
+      "id": "women-threshold",
+      "prompt": "What's the tax-free limit for a woman in Bangladesh this year?",
+      "expect": {
+        "assessment_year": "2026-27",
+        "threshold": 425000,
+        "notes": ["AY 2026-27 women / senior-citizen threshold is 425,000.", "Cite [FB-2026]."]
+      }
+    },
+    {
+      "id": "tax-day-penalty",
+      "prompt": "When is Tax Day in Bangladesh and what's the penalty if I miss it?",
+      "expect": {
+        "tax_day": "30 November",
+        "notes": [
+          "Penalty: 10% of tax on last assessed income (min BDT 1,000) + BDT 50/day continuing.",
+          "Year-round filing introduced from FY 2026-27; late filing still forfeits the rebate and accrues interest.",
+          "From references/filing.md."
+        ]
+      }
+    },
+    {
+      "id": "salary-rent-investment",
+      "prompt": "Compute my tax for salary 14,25,600 plus my 56.25% share of commercial rent 5,16,000, with investment 4,65,000.",
+      "expect": {
+        "assessment_year": "2026-27",
+        "total_income": 1147470,
+        "gross_tax": 104494,
+        "rebate": 34424,
+        "tax_after_rebate": 70070,
+        "notes": [
+          "House property: 516,000 - 30% repair - municipal 9,072 - holding 1,782 = 350,346; 56.25% share = 197,070.",
+          "Salary exemption 475,200 (1/3, < 500,000 cap).",
+          "Must run scripts/tax_calc.py."
+        ]
+      }
+    },
+    {
+      "id": "prior-year-comparison",
+      "prompt": "I had 880,000 taka taxable income for the year ending June 2025 and live in Dhaka. How much tax, and is it different from this year's rates?",
+      "expect": {
+        "assessment_year": "2025-26",
+        "gross_tax": 49500,
+        "notes": [
+          "AY 2025-26 (income year to 30 Jun 2025); 5% slab still applies.",
+          "Same 880,000 under AY 2026-27 would be 60,750 (5% slab abolished) — good to contrast.",
+          "Min tax (Dhaka CC) 5,000, not binding here."
+        ]
+      }
+    },
+    {
+      "id": "surcharge",
+      "prompt": "My net wealth is about 12 crore taka and my salary tax comes to 60,750. Do I owe a surcharge?",
+      "expect": {
+        "assessment_year": "2026-27",
+        "surcharge_rate": 0.2,
+        "surcharge": 12150,
+        "notes": ["12 crore is in the >10cr–20cr band = 20% of income tax = 12,150.", "Cite [DailyStar]."]
+      }
+    }
+  ]
+}
