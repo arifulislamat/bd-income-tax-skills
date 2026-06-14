@@ -4,6 +4,13 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [1.0.2] - 2026-06-14
+
+### Fixed
+- Move the marketplace manifest to `.claude-plugin/marketplace.json` so
+  `/plugin marketplace add` works. Claude Code looks for the manifest at that path; with it
+  at the repo root the command failed with "Marketplace file not found".
+
 ## [1.0.1] - 2026-06-14
 
 ### Added

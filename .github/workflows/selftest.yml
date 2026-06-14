@@ -15,6 +15,6 @@ jobs:
           python-version: "3.12"
       - name: Validate manifests
         run: |
-          python3 -c "import json; json.load(open('marketplace.json')); json.load(open('bd-income-tax/.claude-plugin/plugin.json'))"
+          python3 -c "import json; json.load(open('.claude-plugin/marketplace.json')); json.load(open('bd-income-tax/.claude-plugin/plugin.json'))"
       - name: Run calculator self-test
         run: python3 bd-income-tax/scripts/tax_calc.py --selftest
