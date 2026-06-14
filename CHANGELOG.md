@@ -4,6 +4,17 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [1.1.2] - 2026-06-14
+
+### Added
+- README "Updating" section with the marketplace/plugin update commands and the desktop
+  re-upload step.
+
+### Changed
+- Invoke the calculator by its full path (via `$CLAUDE_PLUGIN_ROOT`) instead of `cd`-ing into
+  the version-numbered install folder, so the command — and any permission allow-rule — stays
+  stable across versions.
+
 ## [1.1.1] - 2026-06-14
 
 ### Changed
