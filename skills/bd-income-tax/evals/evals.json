@@ -76,6 +76,49 @@
         "surcharge": 12150,
         "notes": ["12 crore is in the >10cr–20cr band = 20% of income tax = 12,150.", "Cite [DailyStar]."]
       }
+    },
+    {
+      "id": "next-year-projection",
+      "prompt": "My salary is 800,000 this year. What will my income tax be next year?",
+      "expect": {
+        "assessment_year": "2027-28",
+        "total_income": 533333,
+        "gross_tax": 15833,
+        "notes": [
+          "Next year = income year 1 Jul 2026 – 30 Jun 2027 → AY 2027-28; run --year 2027-28.",
+          "AY 2027-28 mirrors AY 2026-27 (legislated by Finance Ordinance 2025 for two years).",
+          "Must flag the figure as an estimate, subject to amendment by the Finance Act 2027.",
+          "Must run scripts/tax_calc.py."
+        ]
+      }
+    },
+    {
+      "id": "gratuity-within-cap",
+      "prompt": "I'm retiring with a 2,000,000 taka gratuity from my company's approved fund, plus 1,450,000 salary this year. Is the gratuity taxed?",
+      "expect": {
+        "assessment_year": "2026-27",
+        "gratuity_taxable": 0,
+        "total_income": 966667,
+        "notes": [
+          "Gratuity from an approved/govt fund is exempt up to 2.5 crore (Sixth Schedule Part 1, paras 5–6) — 2,000,000 is fully exempt.",
+          "Total income = taxable salary only (966,667); gratuity adds nothing.",
+          "Run --gratuity 2000000; cite [ITA-2023-6Sch]."
+        ]
+      }
+    },
+    {
+      "id": "vehicle-advance-tax-credit",
+      "prompt": "I paid 25,000 taka advance tax when renewing my car's fitness, and my salary is 800,000. Does the car reduce my tax?",
+      "expect": {
+        "assessment_year": "2026-27",
+        "vehicle_credit_used": 15833,
+        "net_payable": 0,
+        "notes": [
+          "The car does NOT reduce taxable income — the 25,000 (Sec 153) is a non-refundable credit, not a deduction.",
+          "Tax due 15,833 is fully covered; the remaining 9,167 is forfeited (no refund).",
+          "Run --vehicle-advance-tax 25000; cite [S153]. Explain credit vs deduction."
+        ]
+      }
     }
   ]
 }

@@ -52,6 +52,31 @@ special needs, approved technical issues).
   calculator → rebate 0) and triggers delay interest of **~2%/month — ⚠️ unverified
   rate/section; confirm against the gazetted Act.**
 
+## Tax already paid — credits vs deductions
+
+A common confusion: tax *already paid during the year* is a **prepayment of your own tax**,
+credited against the final bill — it does **not** reduce taxable income the way an exemption or
+the investment rebate does. "Buying a car" or "paying TDS" does not lower your tax; it pre-pays it.
+
+- **Salary TDS** — **Section 86**, deduction from employment income at the *average rate* on
+  estimated annual income. Fully adjustable; any **excess is refundable**. *(`tax_calc.py`:
+  `--tds`.)* `[ITA-2023]` `[S86]`
+- **Vehicle advance tax** — **Section 153**, a fixed amount collected at registration / fitness
+  renewal by engine capacity (BDT 25,000 up to 1500cc … BDT 200,000 over 3500cc; microbus
+  30,000). It is **adjustable but non-refundable** — treated as minimum tax for that notional
+  income, so any **excess is forfeited**, not refunded (§153(6)–(7)). Owning **two or more**
+  vehicles raises the advance tax by **+50% per additional vehicle**. *(`tax_calc.py`:
+  `--vehicle-advance-tax`.)* `[S153]` `[SDTT]`
+- **Dividend / interest WHT** — dividend WHT is **minimum tax and non-refundable**. `[ITA-2023]`
+
+> Separate from the above (a tax on *wealth*, not a credit): owning **more than one car** also
+> trips the **10% net-wealth surcharge** band, and a **non-adjustable environmental surcharge**
+> applies to multiple-vehicle owners at registration/fitness renewal (EVs exempt from AY
+> 2026-27). Don't conflate these with the §153 advance-tax credit above. `[FB-2026]` `[VATax]`
+
+To claim a credit: report the income **and** the tax withheld, and keep the deduction
+certificate / a-challan.
+
 ## Disclaimer (embed in every answer)
 
 > Informational only; not professional tax advice. Verify against the current gazetted
