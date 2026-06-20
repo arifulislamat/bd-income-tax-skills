@@ -31,9 +31,13 @@ Bangladesh fiscal/income year runs **1 Jul – 30 Jun**; the income year maps to
 |---|---|---|---|
 | 1 Jul 2024 – 30 Jun 2025 | **AY 2025-26** | Finance Ordinance 2025 | 350,000 |
 | 1 Jul 2025 – 30 Jun 2026 | **AY 2026-27** (primary) | ITA 2023 + Finance Bill 2026 | 375,000 |
+| 1 Jul 2026 – 30 Jun 2027 | **AY 2027-28** (legislated) | mirrors AY 2026-27 (FO 2025 two-year fix) until the Finance Act 2027 | 375,000 |
 
 - **Default:** if the user gives a current salary/income with no year, assume income year
   FY 2025-26 → **AY 2026-27**.
+- For **"what will I owe next year"** questions (e.g. after a salary increment), use
+  **AY 2027-28** — its figures are legislated (FO 2025 two-year fix) but flag them as an
+  estimate, subject to the Finance Act 2027.
 - **State the assessment year and governing law at the top of every answer.**
 - Note that FY 2026-27 is still a **Finance Bill** (placed 11 Jun 2026) until gazetted as the
   Finance Act 2026 — say so.
@@ -42,8 +46,9 @@ Bangladesh fiscal/income year runs **1 Jul – 30 Jun**; the income year maps to
 
 Read **only** the file for the relevant year, plus shared files as needed:
 
-- `references/ay-2026-27.md` — AY 2026-27 slabs, thresholds, salary cap, rebate, min tax, surcharge.
+- `references/ay-2026-27.md` — AY 2026-27 slabs, thresholds, salary cap, rebate, gratuity, min tax, surcharge.
 - `references/ay-2025-26.md` — prior-year figures (note the 5% slab still applies that year).
+- `references/ay-2027-28.md` — next year; legislated to mirror AY 2026-27 (flag as estimate).
 - `references/procedure.md` — the ordered 9-step procedure + worked example.
 - `references/filing.md` — TIN, PSR, e-return, forms, Tax Day, penalties.
 - `references/sources.md` — source keys; cite the source for every rate/threshold.
@@ -65,7 +70,8 @@ directory. Or import `compute_tax(...)`. Key inputs: `--year`, `--category`
 (`--salary` gross, `--rent`, `--agriculture`, `--business`, `--capital-gains`, `--financial`,
 `--other`), `--investment`, `--location` (AY 2025-26 min tax: `dhaka_ctg_cc|other_cc|other`),
 `--new-taxpayer`, `--net-wealth`, `--extra-car`, `--big-house`, `--tds`, `--filed-late`,
-`--gross-receipts`. Run `--selftest` to confirm the four canonical results.
+`--gross-receipts`, `--gratuity` (with `--gratuity-unapproved`), `--vehicle-advance-tax`. Run
+`--selftest` to confirm the eight canonical results.
 
 The script returns every intermediate (threshold, salary exemption, total income, slab
 breakdown, gross tax, rebate + its three candidates, tax after rebate, minimum tax, surcharge,
@@ -164,8 +170,12 @@ total income **1,147,470**, gross tax **104,494**, rebate **34,424**, tax after 
 - Every numeric output states the **income year and assessment year**; keep source tags out of
   the plain answer, but give them (or the full procedure) whenever the user asks.
 - Figures marked **⚠️ unverified** in the references (DPS cap, agriculture deemed-cost %,
-  solely-agricultural exemption, delay-interest rate) are **not** used by the calculator —
-  present them only with the caveat to confirm against the gazetted Act.
+  solely-agricultural exemption, delay-interest rate, non-approved-fund gratuity) are **not**
+  relied on by the calculator — present them only with the caveat to confirm against the
+  gazetted Act.
+- **Credits are not deductions.** Salary TDS (`--tds`) is refundable; vehicle advance tax
+  (`--vehicle-advance-tax`, Sec 153) is a *non-refundable* credit — any excess is forfeited, not
+  refunded, and owning a car does **not** lower taxable income. See `references/filing.md`.
 
 ## 7. Always close with the disclaimer
 

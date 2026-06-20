@@ -4,6 +4,28 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] - 2026-06-20
+
+### Added
+- **Assessment Year 2027-28** support (`--year 2027-28`) for forward-looking "what will I owe
+  next year" questions. Legislated by the Finance Ordinance 2025 as a two-year fix mirroring
+  AY 2026-27; built from the 2026-27 params via `deepcopy` so they never drift, and flagged as
+  an estimate subject to the Finance Act 2027. New `references/ay-2027-28.md`.
+- **Gratuity exemption** (`--gratuity`, `--gratuity-unapproved`): exempt up to BDT 2.5 crore
+  from a government or NBR-approved fund (Sixth Schedule Part 1, paras 5–6); excess taxable as
+  employment income. Non-approved funds conservatively treated as fully taxable.
+- **Vehicle advance tax** (`--vehicle-advance-tax`, Section 153): modelled as a *non-refundable*
+  minimum-tax-style credit — creditable up to the tax due, excess forfeited — distinct from
+  refundable salary TDS (Section 86). New return fields `vehicle_credit_used`,
+  `nonrefundable_unused`, `refund`.
+- Source keys `[ITA-2023-6Sch]`, `[S86]`, `[S153]`, `[SDTT]`, `[VATax]`, `[bdtaxation]`; four
+  new self-test cases (5–8) and four new eval cases.
+
+### Notes
+- The Finance Act 2026 was **not yet gazetted** as of 2026-06-20 (still the Finance Bill 2026),
+  so `[FB-2026]` framing and the remaining ⚠️ unverified figures are retained pending the
+  gazette (expected ~30 Jun 2026).
+
 ## [1.2.1] - 2026-06-14
 
 ### Added

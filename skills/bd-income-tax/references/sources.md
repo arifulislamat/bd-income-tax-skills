@@ -10,6 +10,17 @@ users to confirm against the gazetted **Finance Act 2026** and current NBR circu
 - **`[ITA-2023]`** Income Tax Act 2023 (আয়কর আইন, ২০২৩), Act No. XII of 2023 — the standing
   statute; repealed the Income Tax Ordinance 1984.
   `https://nbr.gov.bd/uploads/acts/Income_tax_act_2023.pdf`
+- **`[ITA-2023-6Sch]`** Income Tax Act 2023, **Sixth Schedule** — Part 1 (exclusions from total
+  income: gratuity 2.5cr at paras 5 (govt) & 6 (approved fund), pension, provident/gratuity/
+  pension-fund contributions) and Part 3 (eligible investments for the Section 78 rebate).
+  `http://bdlaws.minlaw.gov.bd/act-1429/act-part-print-541.html`
+- **`[S86]`** Income Tax Act 2023, **Section 86** — deduction at source from income from
+  employment (salary TDS at the average rate; adjustable, excess refundable). Was §50 of the
+  1984 Ordinance. `https://www.taxvatpoint.com/income-tax-act-2023-section-86/`
+- **`[S153]`** Income Tax Act 2023, **Section 153** — collection of advance tax from motor-vehicle
+  owners at registration/fitness renewal (fixed by CC; +50% per additional vehicle;
+  non-refundable per §153(6)–(7)). Was §68B of the 1984 Ordinance.
+  `https://www.taxvatpoint.com/income-tax-act-2023-section-153/`
 - **`[NBR]`** National Board of Revenue — `https://nbr.gov.bd`
 - **`[eReturn]`** e-Return portal — `https://etaxnbr.gov.bd`
 - **`[TIN]`** e-TIN registration — `https://secure.incometax.gov.bd`
@@ -30,6 +41,12 @@ users to confirm against the gazetted **Finance Act 2026** and current NBR circu
   `https://thedailystar.net/business/news/how-bangladeshs-surcharge-and-wealth-tax-system-works-4013321`
 - **`[Ramco]`** Minimum-tax change & salary cap — `https://ramco.com/payce/payroll-compliance-bangladesh`
 - **`[TaxpertBD]`** Personal tax changes — `https://taxpertbd.com/personal-tax-changes-2025/`
+- **`[SDTT]`** SDTT Academy — vehicle advance tax / multiple-vehicle (>1 car) surcharge trigger.
+  `https://www.sdttacademy.com/blog/income-tax-in-bangladesh`
+- **`[VATax]`** VATax BD — Finance Ordinance 2025 changes, incl. the non-adjustable environmental
+  surcharge. `https://vataxbd.com/key-changes-in-the-finance-ordinance-2025-of-bangladesh/`
+- **`[bdtaxation]`** ITA 2023 section text, incl. the gratuity 2.5cr exclusion.
+  `https://bdtaxation.com/tax-act-section/435`
 
 ## Caveat tag
 

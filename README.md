@@ -17,8 +17,12 @@ across the tools that adopted it.
 ## What it does
 
 - **Year-aware.** Bangladesh income year is 1 Jul – 30 Jun → the *following* assessment year.
-  Primary year **AY 2026-27**; also supports **AY 2025-26** for late/prior returns. Every
+  Primary year **AY 2026-27**; also **AY 2025-26** (late/prior returns) and **AY 2027-28**
+  (next year, legislated to mirror 2026-27 — for "what will I owe after my increment"). Every
   answer states the assessment year and governing law.
+- **Gratuity & credits.** Models the **gratuity exemption** (up to BDT 2.5 crore from an
+  approved fund) and treats **vehicle advance tax** (Section 153) as a *non-refundable* credit,
+  distinct from refundable salary TDS — so "a car reduces my tax" is answered correctly.
 - **Deterministic math.** All arithmetic runs through
   [`skills/bd-income-tax/scripts/tax_calc.py`](./skills/bd-income-tax/scripts/tax_calc.py) — standard
   library only, **no network calls**, no model arithmetic.

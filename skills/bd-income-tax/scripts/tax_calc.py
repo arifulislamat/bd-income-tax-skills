@@ -3,7 +3,8 @@
 Bangladesh individual income-tax calculator (deterministic, standard library only).
 
 Scope: PERSONAL / individual income tax under the Income Tax Act 2023 as amended by
-the annual Finance Act. Supports Assessment Year (AY) 2026-27 (primary) and 2025-26.
+the annual Finance Act. Supports Assessment Year (AY) 2026-27 (primary), 2025-26, and
+2027-28 (legislated via the Finance Ordinance 2025 for two years; mirrors 2026-27).
 
 All rates/thresholds live in PARAMS below so a yearly update touches one place.
 This module performs NO network calls. It is the single source of arithmetic for the
@@ -21,6 +22,7 @@ CLI:
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 from typing import Optional
 
@@ -93,6 +95,18 @@ PARAMS = {
     },
 }
 
+# AY 2027-28 was legislated together with AY 2026-27 by the Finance Ordinance 2025 (a
+# two-year fix: same Tk 375,000 threshold, same 0/10/15/20/25/30% schedule, same flat
+# Tk 5,000 minimum tax). Build it from 2026-27 to avoid drift, then override the law note.
+PARAMS["2027-28"] = copy.deepcopy(PARAMS["2026-27"])
+PARAMS["2027-28"]["governing_law"] = (
+    "Income Tax Act 2023 as amended. The Tk 375,000 threshold, the 0/10/15/20/25/30% slab "
+    "schedule, and the flat Tk 5,000 minimum tax were legislated via the Finance Ordinance "
+    "2025 for BOTH AY 2026-27 and AY 2027-28. They remain subject to amendment by the Finance "
+    "Act 2027 (budget ~Jun 2027), so treat this as the best current estimate for AY 2027-28, "
+    "not yet a final filing figure."
+)
+
 # Net-wealth surcharge bands (% of income tax after rebate). Shared across years.
 # Each tuple: (upper_bound_inclusive_or_None, rate).
 SURCHARGE_BANDS = [
@@ -110,6 +124,11 @@ REBATE_CAP = 1_000_000             # candidate 3: hard cap
 
 GROSS_RECEIPTS_FLOOR = 40_000_000  # > 4 crore gross receipts triggers 0.25% min tax
 GROSS_RECEIPTS_RATE = 0.0025
+
+# Gratuity (end-of-service benefit) exclusion: ITA 2023 Sixth Schedule Part 1, paras 5-6.
+# Exempt up to BDT 2.5 crore when received from a government or NBR-approved gratuity fund;
+# any excess is taxable as employment income. Cap unchanged through the Finance Ordinance 2025.
+GRATUITY_EXEMPT_CAP = 25_000_000   # BDT 2.5 crore
 
 
 def _slab_tax(taxable_above_threshold: float, bands) -> tuple[float, list]:
@@ -147,6 +166,9 @@ def compute_tax(
     tds_paid: float = 0,
     filed_late: bool = False,         # if True, investment rebate is forfeited
     gross_receipts: float = 0,        # for the 0.25% gross-receipts min-tax comparison
+    gratuity_received: float = 0,     # end-of-service gratuity (Sixth Sch. Part 1, paras 5-6)
+    gratuity_from_approved_fund: bool = True,   # govt / NBR-approved fund -> 2.5cr exemption
+    vehicle_advance_tax: float = 0,   # Sec 153 AIT at fitness renewal: non-refundable credit
 ) -> dict:
     """Compute Bangladesh individual income tax. Returns every intermediate per the
     9-step procedure in references/procedure.md."""
@@ -167,10 +189,21 @@ def compute_tax(
     salary_exemption = min(salary_income / 3.0, p["salary_exemption_cap"]) if salary_income else 0.0
     salary_taxable = max(0.0, salary_income - salary_exemption)
 
-    # Step 3: total income = taxable salary + other heads.
+    # Step 3: total income = taxable salary + other heads + taxable gratuity.
     other_income = other_income or {}
     other_total = sum(float(v) for v in other_income.values())
-    total_income = salary_taxable + other_total
+
+    # Gratuity (Sixth Schedule Part 1, paras 5-6): exempt up to 2.5cr from a govt/approved
+    # fund; the excess is taxable as employment income. Non-approved fund: conservatively
+    # treated as fully taxable (the non-approved treatment is not firmly confirmed — flag it).
+    gratuity_received = float(gratuity_received or 0)
+    if gratuity_received and gratuity_from_approved_fund:
+        gratuity_exempt = min(gratuity_received, GRATUITY_EXEMPT_CAP)
+    else:
+        gratuity_exempt = 0.0
+    gratuity_taxable = round(gratuity_received - gratuity_exempt, 2)
+
+    total_income = salary_taxable + other_total + gratuity_taxable
 
     # Step 4: gross tax via the slab schedule applied above the threshold.
     taxable_above = max(0.0, total_income - threshold)
@@ -214,8 +247,18 @@ def compute_tax(
         surcharge_rate = 0.10
     surcharge = surcharge_rate * tax_after_rebate
 
-    # Step 9: subtract TDS/AIT credits -> net payable.
-    net_payable = payable_before_surcharge + surcharge - tds_paid
+    # Step 9: apply prepaid-tax credits.
+    #   Vehicle advance tax (Sec 153) is non-refundable / minimum-style: creditable only up
+    #   to the tax due — any excess is forfeited (no refund, no carry-forward modelled here;
+    #   confirm the exact in-year-credit vs carry rule against the gazetted Act).
+    #   Salary/other TDS (Sec 86 etc.) is fully adjustable; any excess is refundable.
+    tax_due = payable_before_surcharge + surcharge
+    nonref = float(vehicle_advance_tax or 0)
+    nonref_used = min(nonref, tax_due)
+    after_nonref = tax_due - nonref_used
+    net_payable = after_nonref - float(tds_paid or 0)   # may go negative -> refundable
+    refund = max(0.0, -net_payable)
+    nonrefundable_unused = round(nonref - nonref_used, 2)
 
     return {
         "assessment_year": assessment_year,
@@ -226,6 +269,10 @@ def compute_tax(
         "salary_exemption": round(salary_exemption, 2),
         "salary_taxable": round(salary_taxable, 2),
         "other_income": {k: round(float(v), 2) for k, v in other_income.items()},
+        "gratuity_received": round(gratuity_received, 2),
+        "gratuity_from_approved_fund": gratuity_from_approved_fund,
+        "gratuity_exempt": round(gratuity_exempt, 2),
+        "gratuity_taxable": round(gratuity_taxable, 2),
         "total_income": round(total_income, 2),
         "taxable_above_threshold": round(taxable_above, 2),
         "slab_breakdown": slab_breakdown,
@@ -243,8 +290,12 @@ def compute_tax(
         "minimum_tax_applied": minimum_tax_applied,
         "surcharge_rate": surcharge_rate,
         "surcharge": round(surcharge, 2),
+        "vehicle_advance_tax": round(nonref, 2),
+        "vehicle_credit_used": round(nonref_used, 2),
+        "nonrefundable_unused": nonrefundable_unused,
         "tds_credit": round(tds_paid, 2),
         "net_payable": round(net_payable, 2),
+        "refund": round(refund, 2),
     }
 
 
@@ -303,6 +354,32 @@ def _selftest() -> int:
     )
     check("Case 4 gross_tax", r4["gross_tax"], 49_500)
 
+    # Case 5: AY 2027-28 mirrors AY 2026-27 (same threshold + schedule).
+    r5 = compute_tax("2027-28", "general", salary_income=800_000)
+    check("Case 5 (2027-28 mirrors 2026-27) gross_tax", r5["gross_tax"], 15_833.33)
+
+    # Case 6: gratuity within the 2.5cr cap from an approved fund -> fully exempt; total
+    # income is unchanged vs no gratuity.
+    r6 = compute_tax(
+        "2026-27", "general", salary_income=1_450_000,
+        gratuity_received=2_000_000, gratuity_from_approved_fund=True,
+    )
+    check("Case 6 gratuity_taxable", r6["gratuity_taxable"], 0)
+    check("Case 6 total_income", r6["total_income"], 966_666.67)
+
+    # Case 7: gratuity above the 2.5cr cap -> excess is taxable.
+    r7 = compute_tax(
+        "2026-27", "general",
+        gratuity_received=30_000_000, gratuity_from_approved_fund=True,
+    )
+    check("Case 7 gratuity_taxable", r7["gratuity_taxable"], 5_000_000)
+
+    # Case 8: vehicle AIT (Sec 153) only partly usable -> non-refundable, net 0.
+    # Tax due 15,833.33; car AIT 25,000 -> 15,833.33 credited, 9,166.67 forfeited.
+    r8 = compute_tax("2026-27", "general", salary_income=800_000, vehicle_advance_tax=25_000)
+    check("Case 8 vehicle_credit_used", r8["vehicle_credit_used"], 15_833.33)
+    check("Case 8 net_payable", r8["net_payable"], 0)
+
     print()
     if failures == 0:
         print("All canonical test cases passed.")
@@ -314,7 +391,10 @@ def _selftest() -> int:
 def _cli() -> None:
     ap = argparse.ArgumentParser(description="Bangladesh individual income-tax calculator.")
     ap.add_argument("--selftest", action="store_true", help="run canonical test cases")
-    ap.add_argument("--year", default="2026-27", help="assessment year (2026-27 | 2025-26)")
+    ap.add_argument(
+        "--year", default="2026-27",
+        help="assessment year (2026-27 primary | 2025-26 | 2027-28 legislated, mirrors 2026-27)",
+    )
     ap.add_argument("--category", default="general")
     ap.add_argument("--salary", type=float, default=0, help="gross salary before exemption")
     ap.add_argument("--rent", type=float, default=0)
@@ -332,6 +412,15 @@ def _cli() -> None:
     ap.add_argument("--tds", type=float, default=0)
     ap.add_argument("--filed-late", action="store_true")
     ap.add_argument("--gross-receipts", type=float, default=0)
+    ap.add_argument("--gratuity", type=float, default=0, help="gratuity received (end of service)")
+    ap.add_argument(
+        "--gratuity-unapproved", action="store_true",
+        help="gratuity is NOT from a govt/NBR-approved fund (no 2.5cr exemption)",
+    )
+    ap.add_argument(
+        "--vehicle-advance-tax", type=float, default=0,
+        help="Sec 153 advance tax paid at fitness renewal (non-refundable credit)",
+    )
     args = ap.parse_args()
 
     if args.selftest:
@@ -361,6 +450,9 @@ def _cli() -> None:
         tds_paid=args.tds,
         filed_late=args.filed_late,
         gross_receipts=args.gross_receipts,
+        gratuity_received=args.gratuity,
+        gratuity_from_approved_fund=not args.gratuity_unapproved,
+        vehicle_advance_tax=args.vehicle_advance_tax,
     )
     print(json.dumps(result, indent=2))
 

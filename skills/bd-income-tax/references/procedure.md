@@ -8,7 +8,8 @@ The script returns every intermediate listed here.
    slab table, salary cap, and min-tax rule (`references/ay-2026-27.md` or `ay-2025-26.md`).
 2. **Compute each income head.** For salary, subtract the exemption = lower of ⅓ salary or
    the year's cap.
-3. **Sum heads → total income.**
+3. **Sum heads → total income.** Add any **taxable gratuity** (gratuity above the BDT 2.5cr
+   exempt cap from a govt/approved fund; see `ay-2026-27.md`).
 4. **Apply the slab schedule** to income above the threshold → **gross tax**.
 5. **Section 78 rebate** = 15% × lowest of {3% of total income, 15% of eligible investment,
    1,000,000}. **No rebate if the return is filed after Tax Day.**
@@ -17,8 +18,10 @@ The script returns every intermediate listed here.
    gross receipts > BDT 40,000,000, also compare 0.25% of gross receipts.
 8. **Net-wealth surcharge** = surcharge% × (tax after rebate), if net wealth is in a band
    (or the >1-car / >8,000 sq ft trigger applies → 10%).
-9. **Subtract TDS/AIT credits** (with certificates) → **net tax payable** (refund if
-   negative, except non-refundable WHTs such as dividend WHT).
+9. **Apply prepaid-tax credits** (with certificates) → **net tax payable**. Credit
+   *non-refundable* items first — vehicle advance tax (Sec 153) and dividend WHT are
+   creditable only up to the tax due; any excess is forfeited. Then subtract *refundable*
+   salary/other TDS (Sec 86); a negative balance is a refund. See `references/filing.md`.
 
 ## Worked example (AY 2026-27)
 
