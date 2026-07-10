@@ -57,8 +57,6 @@ that's a path the skills.sh CLI scans, and Claude Code discovers a plugin's skil
   `marketplace.json` `metadata.version`, and `CHANGELOG.md`.
 - **[Conventional Commits](https://www.conventionalcommits.org/)** (`feat`/`fix`/`docs`/
   `chore`/`test`/`ci`/`build`).
-- Commits are **authored solely by the maintainer, signed, with no AI co-author trailer**
-  (AI assistance is disclosed once in the README/CONTRIBUTING instead).
 - Cut a release with a signed tag `vX.Y.Z`, a GitHub Release with named notes, and the skill
   archive attached. Build the archive with:
   ```
