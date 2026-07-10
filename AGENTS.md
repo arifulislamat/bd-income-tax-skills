@@ -83,4 +83,5 @@ Desktop / Claude.ai: download `bd-income-tax.zip` from the latest release and up
 ## Disclaimer
 
 Everything here is informational only and **not professional tax advice**. AY 2026-27 figures
-stay provisional until the Finance Act 2026 is gazetted.
+follow the **Finance Act 2026** (general threshold Tk 400,000 as passed); confirm against the
+official gazette and current NBR circulars before filing.

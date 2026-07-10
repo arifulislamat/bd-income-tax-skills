@@ -4,6 +4,24 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [1.4.0] - 2026-07-10
+
+### Changed
+- **AY 2026-27 general tax-free threshold raised Tk 375,000 → Tk 400,000.** Parliament passed
+  the Finance Bill 2026 with the threshold amended up from the proposed Tk 375,000 to
+  Tk 400,000 for FY2026-27 and FY2027-28 (multi-year schedule: 450,000 for 2028-29/2029-30).
+  The calculator, references, and worked examples now use 400,000. `[FA-2026]`
+- Re-sourced the FY2026-27 figures to the **enacted Finance Act 2026** rather than the
+  Finance Bill: renamed the `[FB-2026]` source key to `[FA-2026]`, added the parliamentary-
+  passage sources (Dhaka Tribune, The Daily Star), and removed the "provisional / not yet
+  gazetted" hedging across `SKILL.md`, the references, `README.md`, and `AGENTS.md`.
+
+### Fixed
+- Canonical self-test and eval figures updated for the new threshold: gross tax on the
+  ৳800,000-salary case **15,833 → 13,333**; the 1,147,470 worked example **gross 104,494 →
+  99,494, after-rebate 70,070 → 65,070**; the 880,000 AY 2026-27 contrast **60,750 → 57,000**.
+  AY 2027-28 mirrors AY 2026-27, so its projection changes to match.
+
 ## [1.3.0] - 2026-06-20
 
 ### Added

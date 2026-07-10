@@ -41,7 +41,7 @@ special needs, approved technical issues).
 - **Tax Day: 30 November** following the income year. (AY 2025-26 was extended to
   **31 Dec 2025**.)
 - **From FY 2026-27, year-round filing was introduced** — but late filing still carries
-  interest/penalty and forfeits the investment rebate for that year. `[FB-2026]`
+  interest/penalty and forfeits the investment rebate for that year. `[FA-2026]`
 
 ## Penalties
 
@@ -72,7 +72,7 @@ the investment rebate does. "Buying a car" or "paying TDS" does not lower your t
 > Separate from the above (a tax on *wealth*, not a credit): owning **more than one car** also
 > trips the **10% net-wealth surcharge** band, and a **non-adjustable environmental surcharge**
 > applies to multiple-vehicle owners at registration/fitness renewal (EVs exempt from AY
-> 2026-27). Don't conflate these with the §153 advance-tax credit above. `[FB-2026]` `[VATax]`
+> 2026-27). Don't conflate these with the §153 advance-tax credit above. `[FA-2026]` `[VATax]`
 
 To claim a credit: report the income **and** the tax withheld, and keep the deduction
 certificate / a-challan.

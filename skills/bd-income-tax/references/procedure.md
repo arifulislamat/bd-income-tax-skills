@@ -31,10 +31,10 @@ Salary + co-owned commercial property; eligible investment 465,000.
 - **House property:** 516,000 − 30% repair (154,800) − municipal (9,072) − holding (1,782)
   = 350,346; taxpayer's 56.25% share = **197,070**.
 - **Total income** = 950,400 + 197,070 = **1,147,470**.
-- **Gross tax:** 0 + (300,000×10% = 30,000) + (400,000×15% = 60,000) + (72,470×20% = 14,494)
-  = **104,494**.
+- **Gross tax:** 0 (first 400,000) + (300,000×10% = 30,000) + (400,000×15% = 60,000) +
+  (47,470×20% = 9,494) = **99,494**.
 - **Rebate** = min(3%×1,147,470 = 34,424; 15%×465,000 = 69,750; 1,000,000) = **34,424**.
-- **Tax after rebate** = **70,070**. (Above the 5,000 minimum; no surcharge assumed.) Then
+- **Tax after rebate** = **65,070**. (Above the 5,000 minimum; no surcharge assumed.) Then
   less any TDS.
 
 Reproduce with:

@@ -1,9 +1,11 @@
 # Sources
 
 Every rate/threshold in the reference files is tagged with one of the source keys below
-(e.g. `[ITA-2023]`, `[FB-2026]`, `[PwC]`). Always cite the source for a figure when you
-present it. As of mid-June 2026 the FY 2026-27 measures sit in a **Finance Bill** — tell
-users to confirm against the gazetted **Finance Act 2026** and current NBR circulars.
+(e.g. `[ITA-2023]`, `[FA-2026]`, `[PwC]`). Always cite the source for a figure when you
+present it. The FY 2026-27 measures are now the **Finance Act 2026** (Finance Bill 2026
+passed by Parliament, effective 1 Jul 2026); the general tax-free threshold was raised to
+**Tk 400,000** on passage. Still tell users to confirm against the official gazette and
+current NBR circulars.
 
 ## Primary / official
 
@@ -24,10 +26,14 @@ users to confirm against the gazetted **Finance Act 2026** and current NBR circu
 - **`[NBR]`** National Board of Revenue — `https://nbr.gov.bd`
 - **`[eReturn]`** e-Return portal — `https://etaxnbr.gov.bd`
 - **`[TIN]`** e-TIN registration — `https://secure.incometax.gov.bd`
-- **`[FB-2026]`** Finance Bill 2026 / FY2026-27 budget (placed in Parliament 11 Jun 2026):
-  - BSS — `https://bssnews.net/national-budget-2026-2027/394898`
-  - Dhaka Tribune — `https://dhakatribune.com/business/412340`
-  - Prothom Alo — `https://en.prothomalo.com/business/local/0sug1clq5v`
+- **`[FA-2026]`** Finance Act 2026 / FY2026-27 budget (Finance Bill placed 11 Jun 2026, passed
+  by Parliament with the general tax-free threshold raised from Tk 375,000 to **Tk 400,000**):
+  - Finance Bill passed, threshold set at Tk 4 lakh — Dhaka Tribune,
+    `https://www.dhakatribune.com/business/413915/finance-bill-2026-passed-with-structural-revisions`
+  - Threshold set at Tk 4 lakh for FY2026-27 — The Daily Star,
+    `https://www.thedailystar.net/business/bangladesh-budget-2025-26/news/finance-bill-passed-tax-free-income-threshold-set-tk-4-lakh-fy2026-27-4211511`
+  - Original bill (Tk 375,000 proposal) — BSS, `https://bssnews.net/national-budget-2026-2027/394898`;
+    Prothom Alo, `https://en.prothomalo.com/business/local/0sug1clq5v`
 - **`[FO-2025]`** Finance Ordinance 2025 / FY2025-26 (interim govt):
   - Prothom Alo — `https://en.prothomalo.com/business/local/4nttx2jgti`
   - ICAB summary — `https://icab.org.bd`
@@ -35,7 +41,7 @@ users to confirm against the gazetted **Finance Act 2026** and current NBR circu
 ## Authoritative secondary (structure & worked example)
 
 - **`[PwC]`** PwC Worldwide Tax Summaries — Bangladesh Individual (residence, deductions,
-  tax administration, sample calculation showing AY 2026-27 slabs and the 70,070 example):
+  tax administration, sample calculation showing the AY 2026-27 slab structure):
   `https://taxsummaries.pwc.com/bangladesh/individual/`
 - **`[DailyStar]`** Surcharge bands — The Daily Star,
   `https://thedailystar.net/business/news/how-bangladeshs-surcharge-and-wealth-tax-system-works-4013321`

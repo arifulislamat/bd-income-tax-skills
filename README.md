@@ -31,11 +31,12 @@ across the tools that adopted it.
 
 ## Assessment-year caveat
 
-The FY 2026-27 measures were placed as a **Finance Bill** on 11 Jun 2026 and are expected to
-become the **Finance Act 2026** (effective 1 Jul 2026). Until gazetted, treat AY 2026-27
-figures as provisional. A few edge-case figures (DPS cap, agriculture deemed-cost %,
-solely-agricultural exemption, delay-interest rate) are marked **⚠️ unverified** in the
-references and are deliberately **not** used by the calculator.
+The FY 2026-27 measures are now the **Finance Act 2026** (Finance Bill passed by Parliament,
+effective 1 Jul 2026). On passage, the general tax-free threshold was **raised from the
+proposed Tk 375,000 to Tk 400,000** for FY2026-27 and FY2027-28 — the calculator uses 400,000.
+A few edge-case figures (DPS cap, agriculture deemed-cost %, solely-agricultural exemption,
+delay-interest rate) remain **⚠️ unverified** in the references and are deliberately **not**
+used by the calculator; confirm them against the official gazette.
 
 ## Quick start (calculator)
 
@@ -44,7 +45,7 @@ python3 skills/bd-income-tax/scripts/tax_calc.py --selftest        # runs the ca
 python3 skills/bd-income-tax/scripts/tax_calc.py --year 2026-27 --category general --salary 800000
 ```
 
-Canonical results the self-test asserts: **15,833 / 70,070 / 7,500 / 49,500**.
+Canonical results the self-test asserts: **13,333 / 65,070 / 7,500 / 49,500**.
 
 ## Install
 

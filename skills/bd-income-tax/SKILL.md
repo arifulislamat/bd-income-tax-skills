@@ -30,17 +30,17 @@ Bangladesh fiscal/income year runs **1 Jul – 30 Jun**; the income year maps to
 | Income year | Assessment year | Governing law | General threshold |
 |---|---|---|---|
 | 1 Jul 2024 – 30 Jun 2025 | **AY 2025-26** | Finance Ordinance 2025 | 350,000 |
-| 1 Jul 2025 – 30 Jun 2026 | **AY 2026-27** (primary) | ITA 2023 + Finance Bill 2026 | 375,000 |
-| 1 Jul 2026 – 30 Jun 2027 | **AY 2027-28** (legislated) | mirrors AY 2026-27 (FO 2025 two-year fix) until the Finance Act 2027 | 375,000 |
+| 1 Jul 2025 – 30 Jun 2026 | **AY 2026-27** (primary) | ITA 2023 + Finance Act 2026 | 400,000 |
+| 1 Jul 2026 – 30 Jun 2027 | **AY 2027-28** (legislated) | mirrors AY 2026-27 (Finance Act 2026 multi-year schedule) until the Finance Act 2027 | 400,000 |
 
 - **Default:** if the user gives a current salary/income with no year, assume income year
   FY 2025-26 → **AY 2026-27**.
 - For **"what will I owe next year"** questions (e.g. after a salary increment), use
-  **AY 2027-28** — its figures are legislated (FO 2025 two-year fix) but flag them as an
+  **AY 2027-28** — its figures are legislated (same Tk 400,000 schedule) but flag them as an
   estimate, subject to the Finance Act 2027.
 - **State the assessment year and governing law at the top of every answer.**
-- Note that FY 2026-27 is still a **Finance Bill** (placed 11 Jun 2026) until gazetted as the
-  Finance Act 2026 — say so.
+- The Finance Act 2026 raised the general tax-free threshold to **Tk 400,000** on passage (up
+  from the Tk 375,000 originally proposed) — use 400,000 for AY 2026-27.
 
 ## 2. Read the right reference file (progressive disclosure)
 
@@ -92,26 +92,25 @@ Every answer must:
 - When a rebate could lower the bill, end with a **"what-if" savings ladder** — a small table
   of a few round investment amounts → the 15% rebate → the resulting tax, from ৳0 up to the
   amount that brings the tax to ৳0 (scale the rows to the person). Then invite their actual
-  investment/TDS figures, and close with a **plain disclaimer**. Keep `[FB-2026]`-style source
+  investment/TDS figures, and close with a **plain disclaimer**. Keep `[FA-2026]`-style source
   tags **out** of the plain answer.
 
 **Default layout — headline + table + tip:**
 
 ```
-**You owe about ৳15,833 in income tax — roughly ৳1,320 a month.**
+**You owe about ৳13,333 in income tax — roughly ৳1,111 a month.**
 
 Income year **1 Jul 2025 – 30 Jun 2026** → **Assessment Year 2026-27** (filed under the
-Income Tax Act 2023; the 2026-27 rates come from the Finance Bill 2026, still provisional
-until it is passed).
+Income Tax Act 2023, with the 2026-27 rates set by the Finance Act 2026).
 
 | Step | Amount |
 |---|---|
 | Salary for the year (60,000 × 12 + 80,000 bonus) | ৳800,000 |
 | − Tax-free third of salary (⅓, capped at 500,000) | −৳266,667 |
 | **Income that gets taxed** | **৳533,333** |
-| First 375,000 — 0% | ৳0 |
-| Next 158,333 — 10% | ৳15,833 |
-| **Total tax for the year** | **৳15,833** |
+| First 400,000 — 0% | ৳0 |
+| Next 133,333 — 10% | ৳13,333 |
+| **Total tax for the year** | **৳13,333** |
 
 💡 **You can pay less.** Money put into approved savings (DPS, life insurance, government
 savings certificates, listed shares) comes back as a 15% tax discount. Here's how saving more
@@ -119,10 +118,9 @@ lowers this year's tax:
 
 | If you invest in approved savings | You get back (15%) | Your tax becomes |
 |---|---|---|
-| ৳0 | ৳0 | ৳15,833 |
-| ৳50,000 | ৳7,500 | ৳8,333 |
-| ৳100,000 | ৳15,000 | ৳833 |
-| **~৳106,000** | **৳15,833** | **৳0** |
+| ৳0 | ৳0 | ৳13,333 |
+| ৳50,000 | ৳7,500 | ৳5,833 |
+| **~৳88,900** | **৳13,333** | **৳0** |
 
 Tell me your investment amount and any tax your employer already deducted (TDS), and I'll give
 you the final figure.
@@ -144,15 +142,15 @@ Tax-free third of salary                    −266,667
 Income that is taxed                        ৳533,333
 
 Tax, charged in steps
-  First  375,000      0%                           0
-  Next   158,333     10%                      15,833
+  First  400,000      0%                           0
+  Next   133,333     10%                      13,333
                                           ──────────
-➡  TOTAL TAX FOR THE YEAR                   ৳15,833
-   ≈ ৳1,320 per month
+➡  TOTAL TAX FOR THE YEAR                   ৳13,333
+   ≈ ৳1,111 per month
 ```
 
 **Only for professionals, or when explicitly asked for the official breakdown:** give the full
-numbered procedure (`references/procedure.md` steps 1–9) with per-rate `[FB-2026]` /
+numbered procedure (`references/procedure.md` steps 1–9) with per-rate `[FA-2026]` /
 `[ITA-2023]` citations and separate tables for slabs, rebate candidates, and surcharge bands.
 
 ## 5. Reproduce the worked numbers
@@ -161,8 +159,8 @@ numbered procedure (`references/procedure.md` steps 1–9) with per-rate `[FB-20
 python3 scripts/tax_calc.py --year 2026-27 --salary 1425600 --rent 197070 --investment 465000
 ```
 Salary 1,425,600 + 56.25% share of commercial rent (net 197,070), investment 465,000 →
-total income **1,147,470**, gross tax **104,494**, rebate **34,424**, tax after rebate
-**70,070**.
+total income **1,147,470**, gross tax **99,494**, rebate **34,424**, tax after rebate
+**65,070**.
 
 ## 6. Guardrails
 

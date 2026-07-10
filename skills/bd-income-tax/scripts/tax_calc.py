@@ -4,7 +4,7 @@ Bangladesh individual income-tax calculator (deterministic, standard library onl
 
 Scope: PERSONAL / individual income tax under the Income Tax Act 2023 as amended by
 the annual Finance Act. Supports Assessment Year (AY) 2026-27 (primary), 2025-26, and
-2027-28 (legislated via the Finance Ordinance 2025 for two years; mirrors 2026-27).
+2027-28 (set by the Finance Act 2026 for the same figures as 2026-27; mirrors it).
 
 All rates/thresholds live in PARAMS below so a yearly update touches one place.
 This module performs NO network calls. It is the single source of arithmetic for the
@@ -35,12 +35,12 @@ from typing import Optional
 PARAMS = {
     "2026-27": {
         "governing_law": (
-            "Income Tax Act 2023 as amended; rates per Finance Ordinance 2025 and "
-            "Finance Bill 2026 (placed in Parliament 11 Jun 2026 — confirm against "
-            "the gazetted Finance Act 2026)."
+            "Income Tax Act 2023 as amended by the Finance Act 2026 (Finance Bill 2026 "
+            "passed by Parliament with the general tax-free threshold raised to Tk 400,000; "
+            "effective 1 Jul 2026 for AY 2026-27)."
         ),
         "thresholds": {
-            "general": 375_000,
+            "general": 400_000,           # raised from the proposed 375,000 on passage
             "female": 425_000,
             "senior": 425_000,            # senior citizens 65+
             "disabled": 500_000,
@@ -95,16 +95,17 @@ PARAMS = {
     },
 }
 
-# AY 2027-28 was legislated together with AY 2026-27 by the Finance Ordinance 2025 (a
-# two-year fix: same Tk 375,000 threshold, same 0/10/15/20/25/30% schedule, same flat
-# Tk 5,000 minimum tax). Build it from 2026-27 to avoid drift, then override the law note.
+# The Finance Act 2026 set the same figures for AY 2027-28 as AY 2026-27 (the multi-year
+# threshold schedule fixes Tk 400,000 for both 2026-27 and 2027-28, rising to 450,000 in
+# 2028-29): same Tk 400,000 threshold, same 0/10/15/20/25/30% schedule, same flat Tk 5,000
+# minimum tax. Build it from 2026-27 to avoid drift, then override the law note.
 PARAMS["2027-28"] = copy.deepcopy(PARAMS["2026-27"])
 PARAMS["2027-28"]["governing_law"] = (
-    "Income Tax Act 2023 as amended. The Tk 375,000 threshold, the 0/10/15/20/25/30% slab "
-    "schedule, and the flat Tk 5,000 minimum tax were legislated via the Finance Ordinance "
-    "2025 for BOTH AY 2026-27 and AY 2027-28. They remain subject to amendment by the Finance "
-    "Act 2027 (budget ~Jun 2027), so treat this as the best current estimate for AY 2027-28, "
-    "not yet a final filing figure."
+    "Income Tax Act 2023 as amended. The Tk 400,000 threshold, the 0/10/15/20/25/30% slab "
+    "schedule, and the flat Tk 5,000 minimum tax were set by the Finance Act 2026 for BOTH "
+    "AY 2026-27 and AY 2027-28 (multi-year schedule). They remain subject to amendment by the "
+    "Finance Act 2027 (budget ~Jun 2027), so treat this as the best current estimate for "
+    "AY 2027-28, not yet a final filing figure."
 )
 
 # Net-wealth surcharge bands (% of income tax after rebate). Shared across years.
@@ -323,23 +324,23 @@ def _selftest() -> int:
     print("Running canonical test cases:")
 
     # Case 1: AY 2026-27, general, salary 800,000 -> exemption 266,666.67, total 533,333.33,
-    # gross tax 15,833.33.
+    # gross tax 13,333.33 (133,333.33 above the 400,000 threshold @ 10%).
     r1 = compute_tax("2026-27", "general", salary_income=800_000)
     check("Case 1 salary_exemption", r1["salary_exemption"], 266_666.67)
     check("Case 1 total_income", r1["total_income"], 533_333.33)
-    check("Case 1 gross_tax", r1["gross_tax"], 15_833.33)
+    check("Case 1 gross_tax", r1["gross_tax"], 13_333.33)
 
     # Case 2: AY 2026-27, total income 1,147,470 via heads, investment 465,000 ->
-    # gross 104,494, rebate 34,424, after rebate 70,070.
+    # gross 99,494, rebate 34,424, after rebate 65,070.
     # Model total income directly through "other" head (rent) to hit 1,147,470.
     r2 = compute_tax(
         "2026-27", "general",
         other_income={"rent": 1_147_470},
         eligible_investment=465_000,
     )
-    check("Case 2 gross_tax", r2["gross_tax"], 104_494)
+    check("Case 2 gross_tax", r2["gross_tax"], 99_494)
     check("Case 2 rebate", r2["rebate"], 34_424)
-    check("Case 2 tax_after_rebate", r2["tax_after_rebate"], 70_070)
+    check("Case 2 tax_after_rebate", r2["tax_after_rebate"], 65_070)
 
     # Case 3: AY 2026-27, female, total income 500,000 -> threshold 425,000, gross 7,500.
     r3 = compute_tax("2026-27", "female", other_income={"other": 500_000})
@@ -356,7 +357,7 @@ def _selftest() -> int:
 
     # Case 5: AY 2027-28 mirrors AY 2026-27 (same threshold + schedule).
     r5 = compute_tax("2027-28", "general", salary_income=800_000)
-    check("Case 5 (2027-28 mirrors 2026-27) gross_tax", r5["gross_tax"], 15_833.33)
+    check("Case 5 (2027-28 mirrors 2026-27) gross_tax", r5["gross_tax"], 13_333.33)
 
     # Case 6: gratuity within the 2.5cr cap from an approved fund -> fully exempt; total
     # income is unchanged vs no gratuity.
@@ -375,9 +376,9 @@ def _selftest() -> int:
     check("Case 7 gratuity_taxable", r7["gratuity_taxable"], 5_000_000)
 
     # Case 8: vehicle AIT (Sec 153) only partly usable -> non-refundable, net 0.
-    # Tax due 15,833.33; car AIT 25,000 -> 15,833.33 credited, 9,166.67 forfeited.
+    # Tax due 13,333.33; car AIT 25,000 -> 13,333.33 credited, 11,666.67 forfeited.
     r8 = compute_tax("2026-27", "general", salary_income=800_000, vehicle_advance_tax=25_000)
-    check("Case 8 vehicle_credit_used", r8["vehicle_credit_used"], 15_833.33)
+    check("Case 8 vehicle_credit_used", r8["vehicle_credit_used"], 13_333.33)
     check("Case 8 net_payable", r8["net_payable"], 0)
 
     print()
