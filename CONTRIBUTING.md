@@ -21,9 +21,15 @@ wrong rate or threshold is worse than a missing feature.
    ```bash
    python3 skills/bd-income-tax/scripts/tax_calc.py --selftest
    ```
-2. If you changed slabs/thresholds/rebate logic, add or update a canonical case in the
-   self-test and an eval case in `skills/bd-income-tax/evals/evals.json`.
-3. Keep `plugin.json`, `marketplace.json`, and `CHANGELOG.md` versions in sync when releasing.
+2. Run the repository checks (version sync, `SKILL.md` limits, eval figures against the
+   calculator):
+   ```bash
+   python3 tools/check_repo.py
+   ```
+3. If you changed slabs/thresholds/rebate logic, add or update a canonical case in the
+   self-test and an eval case in `skills/bd-income-tax/evals/evals.json`. Give the eval case a
+   `calc` block so the check above verifies its figures.
+4. Keep `plugin.json`, `marketplace.json`, and `CHANGELOG.md` versions in sync when releasing.
 
 ## Commit conventions
 

@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Check the tag matches the plugin version
+        run: python3 tools/check_repo.py --tag "${{ github.event.release.tag_name }}"
       - name: Build skill archive
         run: git archive --format=zip --prefix=bd-income-tax/ -o bd-income-tax.zip HEAD:skills/bd-income-tax
       - name: Attach to release
