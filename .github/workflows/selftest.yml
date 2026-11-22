@@ -11,11 +11,12 @@ jobs:
     strategy:
       matrix:
         include:
-          # 3.9 is the macOS system python3, so it stays the tested floor. setup-python
-          # has no 3.9 build for ubuntu-26.04+, hence the pinned runner for that leg.
+          # Runners are pinned, not ubuntu-latest, so an image rollover cannot break CI unannounced.
+          # 3.9 is the macOS system python3, so it stays the tested floor; setup-python
+          # has no 3.9 build for ubuntu-26.04+, hence the older runner for that leg.
           - { os: ubuntu-24.04, python-version: "3.9" }
-          - { os: ubuntu-latest, python-version: "3.14" }
-          - { os: ubuntu-latest, python-version: "3.15" }
+          - { os: ubuntu-26.04, python-version: "3.14" }
+          - { os: ubuntu-26.04, python-version: "3.15" }
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7

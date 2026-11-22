@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   attach-skill-zip:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
       - name: Check the tag matches the plugin version
