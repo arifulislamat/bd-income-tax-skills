@@ -7,13 +7,18 @@ on:
 
 jobs:
   selftest:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        python-version: ["3.9", "3.12"]
+        include:
+          # 3.9 is the macOS system python3, so it stays the tested floor. setup-python
+          # has no 3.9 build for ubuntu-26.04+, hence the pinned runner for that leg.
+          - { os: ubuntu-24.04, python-version: "3.9" }
+          - { os: ubuntu-latest, python-version: "3.14" }
+          - { os: ubuntu-latest, python-version: "3.15" }
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
       - name: Run calculator self-test

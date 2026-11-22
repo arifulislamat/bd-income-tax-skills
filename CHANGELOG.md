@@ -54,8 +54,8 @@ this is a major version.
   the NBR Income Tax Guides.
 - `tools/check_repo.py`: checks version sync across `plugin.json`, `marketplace.json` and
   `CHANGELOG.md`, `SKILL.md` frontmatter and size limits, and every eval case's figures against
-  the calculator. CI runs it on Python 3.9 and 3.12; the release workflow also checks that the
-  tag matches the version.
+  the calculator. CI runs it on Python 3.9, 3.14 and 3.15; the release workflow also checks that
+  the tag matches the version.
 
 ### Fixed
 - CLI input validation: unknown year/category/location, negative amounts, and flags that do

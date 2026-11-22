@@ -15,7 +15,7 @@ jobs:
   attach-skill-zip:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check the tag matches the plugin version
         run: python3 tools/check_repo.py --tag "${{ github.event.release.tag_name }}"
       - name: Build skill archive
