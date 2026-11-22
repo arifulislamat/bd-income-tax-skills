@@ -6,7 +6,8 @@ read it first.
 Quick reminders (the rest is in AGENTS.md):
 
 - All tax math goes through `skills/bd-income-tax/scripts/tax_calc.py` — never hand-calculate.
-- Run `python3 skills/bd-income-tax/scripts/tax_calc.py --selftest` before committing.
+- Run `python3 skills/bd-income-tax/scripts/tax_calc.py --selftest` and
+  `python3 tools/check_repo.py` before committing.
 - Keep `plugin.json`, `.claude-plugin/marketplace.json`, and `CHANGELOG.md` versions in sync.
 - Conventional Commits; signed, sole-author commits with no AI co-author trailer.
 

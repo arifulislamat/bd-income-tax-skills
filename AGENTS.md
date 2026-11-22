@@ -19,11 +19,13 @@ the current Finance Act. Scope is individuals only — **not** corporate tax or 
 skills/bd-income-tax/               # the skill — discoverable by Claude Code AND skills.sh
   SKILL.md                          # skill instructions / runtime behavior
   scripts/tax_calc.py               # deterministic calculator — the single source of math
-  references/                       # per-year data, 9-step procedure, filing rules, sources
-  evals/evals.json                  # end-to-end eval cases
+  references/                       # per-year data, procedure, filing rules, e-Return browser
+                                    # walkthrough, sources
+  evals/evals.json                  # end-to-end eval cases ("calc" blocks are machine-checked)
+tools/check_repo.py                 # repo checks: versions, SKILL.md, evals vs calculator
 CHANGELOG.md  CONTRIBUTING.md  README.md  AGENTS.md  CLAUDE.md
-.github/workflows/selftest.yml      # CI: runs --selftest + validates manifests
-.github/workflows/release.yml       # on release publish: attaches bd-income-tax.zip
+.github/workflows/selftest.yml      # CI: runs --selftest + tools/check_repo.py
+.github/workflows/release.yml       # on release publish: checks the tag, attaches the zip
 ```
 
 The skill lives under `skills/` (not the repo root or a `bd-income-tax/` subfolder) because
@@ -36,8 +38,16 @@ that's a path the skills.sh CLI scans, and Claude Code discovers a plugin's skil
   arithmetic in `SKILL.md` or the references.
 - **Year parameters live in the `PARAMS` table** in `tax_calc.py` — a yearly update touches
   one place. No network calls anywhere.
-- **Cite every rate/threshold** to `references/sources.md`. Figures not confirmed against the
-  gazetted Act are marked **⚠️ unverified** and kept out of the calculator.
+- **Cite every rate/threshold** to `references/sources.md`. Prefer the gazetted Finance Act
+  and the NBR Income Tax Guide (Nirdeshika) over secondary coverage. Figures not confirmed
+  against them are marked **⚠️ unverified** and kept out of the calculator; where the
+  calculator must assume something, the assumption is listed in `SKILL.md` "Guardrails".
+- **The official PDFs are Bangla in legacy fonts**: extracted text is garbage. Read the pages
+  as images, and add the guide's worked examples to the self-test when figures change.
+- **Browser filing is assistive only** (`references/e-return-browser.md`): the user signs in,
+  pays, and presses the final submit. Never weaken those limits. `SKILL.md` frontmatter must
+  keep to the portable keys (`name`, `description`, `license`, `compatibility`, `metadata`,
+  `allowed-tools`) or the zip upload is rejected.
 - **Answers default to plain language** (see `SKILL.md` §4): bottom line + monthly equivalent,
   a clear *income year → assessment year + law* line, a compact table, a what-if savings
   ladder, and a plain disclaimer. **Match the user's language** (English↔Bangla). The full
@@ -47,9 +57,10 @@ that's a path the skills.sh CLI scans, and Claude Code discovers a plugin's skil
 ## Before committing
 
 1. `python3 skills/bd-income-tax/scripts/tax_calc.py --selftest` must pass.
-2. Validate JSON: `.claude-plugin/marketplace.json` and `.claude-plugin/plugin.json`.
+2. `python3 tools/check_repo.py` must pass (manifest JSON, version sync, `SKILL.md` limits,
+   eval figures against the calculator).
 3. If you change slabs/thresholds/rebate logic, update the canonical self-test case **and** an
-   eval case in `evals/evals.json`.
+   eval case in `evals/evals.json` (give it a `calc` block so CI verifies it).
 
 ## Versioning & releases
 
@@ -81,5 +92,5 @@ Desktop / Claude.ai: download `bd-income-tax.zip` from the latest release and up
 ## Disclaimer
 
 Everything here is informational only and **not professional tax advice**. AY 2026-27 figures
-follow the **Finance Act 2026** (general threshold Tk 400,000 as passed); confirm against the
-official gazette and current NBR circulars before filing.
+follow the gazetted **Finance Act 2026** and the NBR Income Tax Guide 2026-27; confirm against
+current NBR circulars before filing.

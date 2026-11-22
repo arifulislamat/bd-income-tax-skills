@@ -4,6 +4,65 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [2.0.0] - 2026-11-22
+
+Aligned with the gazetted **Finance Act 2026** (Act No. 96 of 2026, gazetted 30 Jun 2026) and
+the NBR Income Tax Guide 2026-27 (published Sep 2026). Several AY 2026-27 results change, so
+this is a major version.
+
+### Changed (AY 2026-27 and AY 2027-28 figures)
+- **Category thresholds corrected.** Women and age 65+: 425,000 → **450,000**. Third-gender and
+  persons with disabilities: 500,000 → **525,000**. Gazetted war-wounded freedom fighters and
+  injured July fighters: 525,000 → **550,000**. `[FA-2026]` Schedule 2, Part 1, para Ka.
+- **Investment rebate (Section 78) reduced.** Now the lowest of 3% of income, **10%** of
+  eligible investment (was 15%), and **BDT 750,000** (was 1,000,000). AY 2025-26 keeps the old
+  formula. The DPS cap (120,000) and government-securities cap (500,000) are now confirmed.
+- **Tax Day replaced by filing windows.** New `--filing-window` / `--filing-date`: 5% incentive
+  (max 25,000) for 1 Jul to 30 Sep; neutral to 31 Dec; additional tax of 2% (min 3,000) for
+  Jan to Mar, 5% (min 5,000) for Apr to Jun, 10% (min 5,000) after the assessment year, 15%
+  (min 10,000) on a Section 212 notice. Late filing **no longer forfeits the rebate**;
+  `--filed-late` now applies to AY 2025-26 only and is rejected for later years.
+- **Vehicle advance tax (Section 153)** is credited against income tax only. It no longer
+  absorbs the net-wealth surcharge, matching the NBR guide's examples 24 and 25. The advance
+  tax table in the references is updated (new bands up to BDT 500,000; microbus 40,000).
+- **Turnover tax.** The old "0.25% above BDT 4 crore" floor is replaced for AY 2026-27 onward
+  by Section 163(6): 1% of business gross receipts where the tax on business income is lower
+  (`--turnover-rate` for the other rates). The attribution method is an approximation and the
+  calculator says so in its output.
+- **AY 2025-26:** removed the unsupported `july_warrior` threshold (that category starts in
+  AY 2026-27).
+- Reference files rewritten against the primary sources: `filing.md` (who must file, 46 PSR
+  services, IT-10B at BDT 50 lakh, one-page return conditions, amended return within 180
+  days), `sources.md` (gazette and NBR guide as primary sources).
+- The plain-language savings ladder now bottoms out at the **minimum tax**, not zero.
+
+### Added
+- **Guided e-Return filing with a browser tool.** New `references/e-return-browser.md` and a
+  `SKILL.md` section: with Claude in Chrome or the Claude desktop app's built-in browser the
+  skill fills the return on `etaxnbr.gov.bd` screen by screen from a confirmed filing sheet and
+  cross-checks the site's tax against the calculator. The user signs in, pays, and presses the
+  final submit; the skill never handles passwords, OTPs, payment or final submission. Falls
+  back to a manual walkthrough when no browser tool is available.
+- **AY 2028-29, 2029-30 and 2030-31**, legislated in advance by the Finance Act 2026 (higher
+  thresholds, new 35% top band), flagged as estimates.
+- `--disabled-children` (+50,000 threshold per disabled child or dependant).
+- `--dividend` (15% flat from AY 2026-27) and `--precious-metal-gain` (5% flat).
+- Calculator output: `status`, `regular_income`, `slab_tax`, `tax_due`, `tax_payable_s173`,
+  `filing_window`, `early_filing_incentive`, `late_filing_additional_tax`, `turnover_tax`, and
+  a `notes` list of caveats to pass on.
+- Self-test grown from 8 cases to 24 (71 checks), 12 of them reproducing worked examples from
+  the NBR Income Tax Guides.
+- `tools/check_repo.py`: checks version sync across `plugin.json`, `marketplace.json` and
+  `CHANGELOG.md`, `SKILL.md` frontmatter and size limits, and every eval case's figures against
+  the calculator. CI runs it on Python 3.9, 3.14 and 3.15; the release workflow also checks that
+  the tag matches the version.
+
+### Fixed
+- CLI input validation: unknown year/category/location, negative amounts, and flags that do
+  not apply to the chosen year now fail with a clear message instead of a traceback or a
+  silently wrong result.
+- Stale calculator docstring ("four canonical test cases").
+
 ## [1.4.0] - 2026-07-10
 
 ### Changed

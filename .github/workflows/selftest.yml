@@ -7,14 +7,22 @@ on:
 
 jobs:
   selftest:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          # Runners are pinned, not ubuntu-latest, so an image rollover cannot break CI unannounced.
+          # 3.9 is the macOS system python3, so it stays the tested floor; setup-python
+          # has no 3.9 build for ubuntu-26.04+, hence the older runner for that leg.
+          - { os: ubuntu-24.04, python-version: "3.9" }
+          - { os: ubuntu-26.04, python-version: "3.14" }
+          - { os: ubuntu-26.04, python-version: "3.15" }
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
-          python-version: "3.12"
-      - name: Validate manifests
-        run: |
-          python3 -c "import json; json.load(open('.claude-plugin/marketplace.json')); json.load(open('.claude-plugin/plugin.json'))"
+          python-version: ${{ matrix.python-version }}
       - name: Run calculator self-test
         run: python3 skills/bd-income-tax/scripts/tax_calc.py --selftest
+      - name: Repository checks (versions, SKILL.md, evals vs calculator)
+        run: python3 tools/check_repo.py
