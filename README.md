@@ -6,9 +6,9 @@
 
 Agent Skill for **Bangladesh individual (personal) income tax**. It lets any compatible AI
 agent (Claude, Codex, Gemini CLI, etc.) accurately answer Bangladesh personal income-tax
-questions and compute tax for a given assessment year — slabs, tax-free thresholds, salary
-exemption, the Section 78 investment rebate, minimum tax, net-wealth surcharge, TDS credit,
-filing/PSR rules, Tax Day, and penalties.
+questions, compute tax for a given assessment year, and help fill the online return on the
+NBR e-Return site: slabs, tax-free thresholds, salary exemption, the Section 78 investment
+rebate, minimum tax, net-wealth surcharge, source-tax credits, filing windows, and PSR rules.
 
 The skill lives in [`skills/bd-income-tax/`](./skills/bd-income-tax). Authored to the open
 [Agent Skills](https://agentskills.io) standard, so the same `SKILL.md` runs unmodified
@@ -16,36 +16,71 @@ across the tools that adopted it.
 
 ## What it does
 
-- **Year-aware.** Bangladesh income year is 1 Jul – 30 Jun → the *following* assessment year.
-  Primary year **AY 2026-27**; also **AY 2025-26** (late/prior returns) and **AY 2027-28**
-  (next year, legislated to mirror 2026-27 — for "what will I owe after my increment"). Every
-  answer states the assessment year and governing law.
-- **Gratuity & credits.** Models the **gratuity exemption** (up to BDT 2.5 crore from an
-  approved fund) and treats **vehicle advance tax** (Section 153) as a *non-refundable* credit,
-  distinct from refundable salary TDS — so "a car reduces my tax" is answered correctly.
+- **Year-aware.** Bangladesh income year is 1 Jul to 30 Jun → the *following* assessment year.
+  Primary year **AY 2026-27**; also **AY 2025-26** (late/prior returns) and the four years the
+  Finance Act 2026 legislated in advance, **AY 2027-28 to AY 2030-31** (flagged as estimates).
+  Every answer states the assessment year and governing law.
+- **Aligned with the gazetted law.** AY 2026-27 figures are checked against the Finance Act
+  2026 (Act No. 96 of 2026) and the NBR Income Tax Guide 2026-27; the self-test reproduces the
+  guide's own worked examples.
+- **Filing windows.** Models the AY 2026-27 timing rules that replaced Tax Day: the early-filing
+  incentive and the additional tax for late windows (`--filing-date`).
+- **Credits done right.** Source tax is refundable; **vehicle advance tax** (Section 153) is a
+  *non-refundable* credit against income tax only, so "a car reduces my tax" is answered
+  correctly. Also models the **gratuity exemption**, flat-rate dividends and gold gains, and
+  the turnover-tax check for businesses.
+- **Guided e-Return filing.** With a browser tool (Claude in Chrome, or the Claude desktop
+  app's built-in browser) the skill fills the return on `etaxnbr.gov.bd` screen by screen from
+  a confirmed filing sheet, and cross-checks the site's tax against the calculator. You sign in,
+  pay, and press the final submit yourself. See
+  [`references/e-return-browser.md`](./skills/bd-income-tax/references/e-return-browser.md).
 - **Deterministic math.** All arithmetic runs through
-  [`skills/bd-income-tax/scripts/tax_calc.py`](./skills/bd-income-tax/scripts/tax_calc.py) — standard
-  library only, **no network calls**, no model arithmetic.
+  [`skills/bd-income-tax/scripts/tax_calc.py`](./skills/bd-income-tax/scripts/tax_calc.py):
+  standard library only, **no network calls**, no model arithmetic.
 - **Sourced.** Every rate/threshold is tagged with its source in
   [`references/sources.md`](./skills/bd-income-tax/references/sources.md).
 
-## Assessment-year caveat
+## What changed with the Finance Act 2026 (AY 2026-27)
 
-The FY 2026-27 measures are now the **Finance Act 2026** (Finance Bill passed by Parliament,
-effective 1 Jul 2026). On passage, the general tax-free threshold was **raised from the
-proposed Tk 375,000 to Tk 400,000** for FY2026-27 and FY2027-28 — the calculator uses 400,000.
-A few edge-case figures (DPS cap, agriculture deemed-cost %, solely-agricultural exemption,
-delay-interest rate) remain **⚠️ unverified** in the references and are deliberately **not**
-used by the calculator; confirm them against the official gazette.
+| Item | AY 2025-26 | AY 2026-27 |
+|---|---|---|
+| General tax-free threshold | 350,000 | 400,000 |
+| Women / age 65+ | 400,000 | 450,000 |
+| Third-gender / disability | 475,000 | 525,000 |
+| War-wounded freedom fighters (and July fighters from 2026-27) | 500,000 | 550,000 |
+| First taxable slab | 5% | 10% |
+| Investment rebate | lowest of 3% income, 15% investment, 1,000,000 | lowest of 3% income, **10%** investment, **750,000** |
+| Minimum tax | 5,000 / 4,000 / 3,000 by area | 5,000 flat (1,000 new taxpayer) |
+| Deadline | Tax Day, late filing lost the rebate | Filing windows: 5% off by 30 Sep, extra tax from January |
+| Dividends | slab rates | 15% flat |
+
+A few edge-case figures remain **⚠️ unverified** in the references, and the calculator's
+stated assumptions are listed in `SKILL.md`. Confirm those against the official text.
 
 ## Quick start (calculator)
 
 ```bash
 python3 skills/bd-income-tax/scripts/tax_calc.py --selftest        # runs the canonical test cases
 python3 skills/bd-income-tax/scripts/tax_calc.py --year 2026-27 --category general --salary 800000
+python3 skills/bd-income-tax/scripts/tax_calc.py --salary 1260000 --investment 270000 --filing-date 2026-09-15
+python3 tools/check_repo.py                                        # versions, SKILL.md, evals vs calculator
 ```
 
-Canonical results the self-test asserts: **13,333 / 65,070 / 7,500 / 49,500**.
+## Filing your return with a browser tool
+
+1. Install the skill (below) in an app that has a browser tool: Claude Code with the
+   **Claude in Chrome** extension (`claude --chrome`), or the **Claude desktop app** with its
+   built-in browser.
+2. Ask, for example: *"Help me file my Bangladesh income tax return on etaxnbr.gov.bd."*
+3. The skill collects your figures, runs the calculator, and shows a filing sheet to confirm.
+4. You sign in to the site yourself (TIN, password, OTP). The skill then fills each screen and
+   reads the values back to you.
+5. You make the payment and press **Submit Return** yourself.
+
+The skill never types your password or OTP, never pays, and never presses the final submit.
+A skill can instruct Claude to use a browser tool but cannot switch one on: if no browser tool
+is available, or the app blocks the site, the skill falls back to a step-by-step walkthrough
+that you follow by hand.
 
 ## Install
 

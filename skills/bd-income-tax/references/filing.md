@@ -1,6 +1,7 @@
-# Filing: TIN, PSR, e-return, forms, deadlines, penalties
+# Filing: TIN, PSR, e-return, forms, timing, penalties
 
-`[ITA-2023]` `[NBR]` `[eReturn]` `[TIN]` unless otherwise tagged.
+`[ITA-2023]` `[FA-2026]` `[NBR-Guide-2026]` unless otherwise tagged. To help someone fill the
+online return in a browser, read `e-return-browser.md`.
 
 ## TIN
 
@@ -9,73 +10,105 @@
 
 ## Who must file
 
-- Taxable income exceeds the threshold; OR assessed in any of the prior three years;
-- Company shareholder-director / executive employee; firm partner; government employee;
+- Total income exceeds the tax-free threshold; OR assessed to tax in any of the prior three
+  years;
+- Shareholder-director or shareholder-employee of a company; partner of a firm; executive or
+  management employee of a business; public servant;
 - Non-resident with a permanent establishment;
-- Anyone required to register or to furnish PSR.
+- Anyone with tax-exempt or reduced-rate income, anyone required to register as a taxpayer
+  (Section 261), and anyone who needs proof of return submission for a listed service.
 
-## PSR — Proof of Submission of Return (Section 264)
+Non-residents other than non-resident Bangladeshis are outside the mandatory list.
 
-Required for **43 services**, e.g. credit card, trade licence, savings certificate
-> BDT 500,000, loans, and more.
+## PSR: Proof of Submission of Return (Section 264)
 
-## e-Return portal — `etaxnbr.gov.bd`
+Required when taking a long list of services (the 2026-27 guide lists **46**), for example a
+loan above BDT 2,000,000, import/export registration, trade licence renewal in a city
+corporation or municipality, land or flat registration, and professional body membership.
+Verify a PSR on the e-Return site ("ReturnVerify/PSR").
 
-Register with TIN + **biometrically-registered mobile** (drop the leading zero) + **OTP**,
-set a password. Then: Return Submission → fill heads → rebate/expenses/assets → auto-compute
-→ pay via **a-challan** → download acknowledgement / PSR.
+## e-Return portal: `etaxnbr.gov.bd`
 
-**Online filing is mandatory for individuals from AY 2025-26** (limited exceptions: age 65+,
-special needs, approved technical issues).
+Register with TIN + a mobile SIM **biometrically registered to your own NID** + **OTP**, then
+set a password. The return then runs through seven steps: Assessment → Income → Rebate →
+Expenditure → Assets & Liabilities → Tax & Payment → Return View → submit. The acknowledgement
+and tax certificate are issued instantly. Full walkthrough: `e-return-browser.md`.
+
+**Online filing is mandatory for individuals** (NBR Special Order 1/2026, 28 Jun 2026), except:
+taxpayers aged 65 or older; physically incapable or special-needs taxpayers (with a
+certificate); Bangladeshi taxpayers living abroad; representatives of a deceased taxpayer; and
+foreign nationals working in Bangladesh. These groups may still file online. Anyone else who
+cannot register may file on paper only with the approval of the Additional or Joint
+Commissioner of Taxes.
 
 ## Forms
 
 | Form | Purpose |
 |---|---|
-| **IT-11GA** | Individual return |
-| **IT-10B** | Statement of assets & liabilities — mandatory if gross wealth > BDT 40 lakh, or for company directors / car owners / city-corporation house owners |
-| **IT-10BB** | Lifestyle / expenditure statement |
+| **IT-11GA (2023)** | Individual return |
+| **IT-GHA (2023)** | One-page return. Allowed only if **all** hold: taxable income up to BDT 500,000; total wealth up to BDT 5,000,000; no motor vehicle; no house or flat in a city corporation; no assets abroad; not a shareholder-director |
+| **IT-10B (2023)** | Statement of assets, liabilities and expenses. Mandatory for public servants; for gross wealth above **BDT 5,000,000**; and, below that, for anyone who owned a motor vehicle, invested in a house or flat in a city corporation, owns assets abroad, or is a shareholder-director |
+| **IT-10BB (2023)** | Lifestyle / expenditure statement |
 
-## Tax Day & deadlines
+## When to file (AY 2026-27 onward)
 
-- **Tax Day: 30 November** following the income year. (AY 2025-26 was extended to
-  **31 Dec 2025**.)
-- **From FY 2026-27, year-round filing was introduced** — but late filing still carries
-  interest/penalty and forfeits the investment rebate for that year. `[FA-2026]`
+There is no single "Tax Day" deadline any more. An individual can file at any time in the
+assessment year (1 Jul 2026 to 30 Jun 2027 for AY 2026-27) and the amount payable shifts by
+window. See the full table in `ay-2026-27.md`.
 
-## Penalties
+```
+Jul-Sep 2026        Oct-Dec 2026     Jan-Mar 2027       Apr-Jun 2027       after 30 Jun 2027
+5% off (max 25k)    no change        +2% (min 3,000)    +5% (min 5,000)    +10% (min 5,000)
+```
 
-- **Non-filing:** 10% of tax on last assessed income (min **BDT 1,000**) + **BDT 50/day** for
-  continuing default.
-- **Under-reporting:** up to **1.5× tax** (Section 72(3)).
-- **Late filing** also forfeits the investment rebate for that year (`filed_late=True` in the
-  calculator → rebate 0) and triggers delay interest of **~2%/month — ⚠️ unverified
-  rate/section; confirm against the gazetted Act.**
+- The calculator applies this through `--filing-window` or `--filing-date`.
+- A statutory "National Tax Day" still exists as an awareness day. It is not a deadline.
+- **AY 2025-26** used the old rule: Tax Day 30 Nov 2025 (later extended), and a late return
+  lost the investment rebate. See `ay-2025-26.md`.
 
-## Tax already paid — credits vs deductions
+## After the assessment year (Section 174)
+
+- Voluntary late return: additional tax = higher of **10%** of the tax payable with the return
+  or **BDT 5,000**. After a Section 212(1) notice: higher of **15%** or **BDT 10,000**.
+- Most tax exemptions are lost (salary exemptions and a short list of Sixth Schedule items are
+  kept). The investment rebate is still allowed.
+- Delay interest is charged at a rate 50% higher. ⚠️ unverified: the base rate (commonly
+  quoted as 2% a month).
+- Not filing at all can also bring a penalty under Section 266, disconnection of utilities,
+  and trouble drawing salary. ⚠️ unverified: the penalty amounts (earlier guidance: 10% of the
+  last assessed tax, minimum BDT 1,000, plus BDT 50 a day).
+
+## Amending a return
+
+An error found after filing can be fixed with an amended return online, **once**, within
+**180 days** of filing.
+
+## Tax already paid: credits vs deductions
 
 A common confusion: tax *already paid during the year* is a **prepayment of your own tax**,
-credited against the final bill — it does **not** reduce taxable income the way an exemption or
-the investment rebate does. "Buying a car" or "paying TDS" does not lower your tax; it pre-pays it.
+credited against the final bill. It does **not** reduce taxable income the way an exemption or
+the investment rebate does. "Buying a car" or "paying TDS" does not lower your tax; it pre-pays
+it.
 
-- **Salary TDS** — **Section 86**, deduction from employment income at the *average rate* on
-  estimated annual income. Fully adjustable; any **excess is refundable**. *(`tax_calc.py`:
-  `--tds`.)* `[ITA-2023]` `[S86]`
-- **Vehicle advance tax** — **Section 153**, a fixed amount collected at registration / fitness
-  renewal by engine capacity (BDT 25,000 up to 1500cc … BDT 200,000 over 3500cc; microbus
-  30,000). It is **adjustable but non-refundable** — treated as minimum tax for that notional
-  income, so any **excess is forfeited**, not refunded (§153(6)–(7)). Owning **two or more**
-  vehicles raises the advance tax by **+50% per additional vehicle**. *(`tax_calc.py`:
-  `--vehicle-advance-tax`.)* `[S153]` `[SDTT]`
-- **Dividend / interest WHT** — dividend WHT is **minimum tax and non-refundable**. `[ITA-2023]`
+- **Source tax (TDS)** on salary, bank interest, sanchayapatra interest, dividends, imports
+  and so on is fully adjustable. From AY 2026-27 any **excess is refundable** or can be carried
+  forward (Section 163 as replaced by the Finance Act 2026). *(`tax_calc.py`: `--tds`.)*
+- **Advance tax** paid in instalments (Section 154) is credited the same way; include it in
+  `--tds`.
+- **Vehicle advance tax** (Section 153), paid at registration or fitness renewal (table in
+  `ay-2026-27.md`), is **adjustable but not refundable**. It is credited against the income
+  tax only: if it exceeds the income tax, nothing more is due on the income, the excess is
+  forfeited, and any surcharge is still payable on top. Only tax paid between 1 Jul and 30 Jun
+  of the income year counts, and the a-challan must be claimed with the return.
+  *(`tax_calc.py`: `--vehicle-advance-tax`.)*
+- **Earlier refund:** a refund due from a previous year can be set against this year's tax.
 
-> Separate from the above (a tax on *wealth*, not a credit): owning **more than one car** also
-> trips the **10% net-wealth surcharge** band, and a **non-adjustable environmental surcharge**
-> applies to multiple-vehicle owners at registration/fitness renewal (EVs exempt from AY
-> 2026-27). Don't conflate these with the §153 advance-tax credit above. `[FA-2026]` `[VATax]`
+> Separate from the above: owning **more than one car** also trips the **10% net-wealth
+> surcharge** band and the **environmental surcharge**, which is never refundable or
+> adjustable. Don't conflate these with the Section 153 advance-tax credit.
 
 To claim a credit: report the income **and** the tax withheld, and keep the deduction
-certificate / a-challan.
+certificate or a-challan. On the e-Return site, credits are claimed in the e-Return Ledger.
 
 ## Disclaimer (embed in every answer)
 
